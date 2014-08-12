@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software | 19 drops]]></title>
   <link href="http://19drops.github.io/blog/categories/software/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-12T22:44:33+02:00</updated>
+  <updated>2014-08-12T22:49:46+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[eae]]></name>
@@ -14,7 +14,33 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Toma La Gallina Y Arráglatelas]]></title>
+    <title type="html"><![CDATA[La Dificultad Del No]]></title>
+    <link href="http://19drops.github.io/blog/2009/10/31/la-dificultad-del-no/"/>
+    <updated>2009-10-31T20:21:31+01:00</updated>
+    <id>http://19drops.github.io/blog/2009/10/31/la-dificultad-del-no</id>
+    <content type="html"><![CDATA[<p>En la vida diaria casi todas las personas hacen un esfuerzo por agradar y facilitar
+las cosas a los demás: preguntas por una calle, dejas un recado, pides ayuda
+para levantar algo… de acuerdo, hay excepciones, pero son las menos.
+Es algo que va en la condición humana. Sin embargo, lo que es bueno en el día a día,
+no es tan bueno cuando se traslada a otros ámbitos.
+Cuando se define un proyecto es de vital importancia mantenerlo dentro de su alcance,
+la salida fácil de la completa aquiescencia ante las demandas no contempladas,
+no es más que una dilación del problema, que no hará sino agravarse.
+La definición de un sistema es algo complejo, no es una mera toma de notas,
+en realidad se trata de un proceso de negociación, que debe manejarse de manera flexible
+para dar cabida a las cuestiones no previstas inicialmente, pero que deban contemplarse,
+y para dar salida a contrapartes equivalentes. En este proceso habrá ocasiones en
+las que será necesario decir que no, y, aunque parezca extraño, se estará haciendo
+un gran servicio al sistema. Un enfoque simplista del tipo <em>lo ha pedido el cliente</em>,
+sin ninguna medida que efectúe un ajuste, introducirá un grave riesgo para
+la consecución del éxito final, porque amplificará sin control su alcance.</p>
+
+<p>Alguna vez he leído lo siguiente atribuído a <a href="http://en.wikipedia.org/wiki/Alan_Cox">Alan Cox</a>: “La gente siempre pide más, pero algunas veces lo correcto es decirles simplemente que no“… en este caso mas que no, sería un negociemoslo.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Toma La Gallina Y Arréglatelas]]></title>
     <link href="http://19drops.github.io/blog/2009/09/28/toma-la-gallina-y-arreglatelas/"/>
     <updated>2009-09-28T22:56:31+02:00</updated>
     <id>http://19drops.github.io/blog/2009/09/28/toma-la-gallina-y-arreglatelas</id>
