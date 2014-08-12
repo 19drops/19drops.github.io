@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence/</loc>
+    <lastmod>2010-03-16T20:45:22+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://19drops.github.io/blog/2010/01/20/zappos-y-su-decalogo/</loc>
     <lastmod>2010-01-20T20:33:33+01:00</lastmod>
     <priority>0.8</priority>
@@ -35,14 +41,14 @@
   
   <url>
     <loc>http://19drops.github.io/blog/archives/</loc>
-    <lastmod>2014-08-12T23:04:35+02:00</lastmod>
+    <lastmod>2014-08-12T23:08:09+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://19drops.github.io/</loc>
-    <lastmod>2014-08-12T23:04:35+02:00</lastmod>
+    <lastmod>2014-08-12T23:08:09+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

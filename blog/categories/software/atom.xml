@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software | 19 drops]]></title>
   <link href="http://19drops.github.io/blog/categories/software/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-12T23:04:35+02:00</updated>
+  <updated>2014-08-12T23:08:09+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[eae]]></name>
@@ -12,6 +12,16 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Atlassian JIRA + Confluence]]></title>
+    <link href="http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence/"/>
+    <updated>2010-03-16T20:45:22+01:00</updated>
+    <id>http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence</id>
+    <content type="html"><![CDATA[<p>Bueno pues todas las herramientas de Atlassian están estos días un poco más asequibles, la verdad es que me parece que tienen esta opción desde enero, pero lo he visto hoy. Están ofreciendo un paquete “starter” que incluye un acceso a todas sus herramientas (no estoy seguro si a Clover también) para 10 usuarios por 10$ ($60 aprox. 44€ el conjunto completo JIRA, Confluence, Green Hopper, Bamboo, FishEye y Crowd).
+La verdad es que para pequeños grupos de trabajo que quieran utilizar estas herramientas es muy interesante, además lo que recaudan con esto lo donan enteramente a Room To Read, que es una gente que se dedica a apoyar la educación de niños en zonas con pocas posibilidades (<em>De la instrucción nace la grandeza a las naciones – José Rizal</em>).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[La Dificultad Del No]]></title>
