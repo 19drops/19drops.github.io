@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-12T22:49:46+02:00</updated>
+  <updated>2014-08-12T22:57:34+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[eae]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Groovy]]></title>
+    <link href="http://19drops.github.io/blog/2010/01/20/groovy/"/>
+    <updated>2010-01-20T20:33:33+01:00</updated>
+    <id>http://19drops.github.io/blog/2010/01/20/groovy</id>
+    <content type="html"><![CDATA[<p>En los últimos dos años se ha producido la consolidación de un proceso, que venía fraguándose de un tiempo antes, en el que la JVM ha pasado de ser la máquina virtual en la que se ejecutaba Java a transformarse en una plataforma sobre la que corren un conjunto muy amplio de lenguajes. Esto es interesante fundamentalmente por tres cosas:</p>
+
+<ul>
+<li><p>es posible elegir, de entre todos estos lenguajes, el que mejor se ajuste a las necesidades de cada proyecto en particular</p></li>
+<li><p>ofrecen una gran integración e interoperabilidad con Java, de modo que su combinación es sencilla pudiendo incluso utilizarlos simultáneamente</p></li>
+<li><p>aprovechan la infraestructura de JVMs ya existentes en multitud de instalaciones</p></li>
+</ul>
+
+
+<p>Algunos de los más populares son: <a href="http://www.scala-lang.org/">Scala</a>, considerado uno de los lenguajes del futuro, <a href="http://clojure.org/">Clojure</a>, con un foco especial en la programación concurrente, <a href="http://groovy.codehaus.org/">Groovy</a>, como un superconjunto de Java, Ruby (a través de <a href="http://jruby.org/">JRuby</a>), capaz de ejecutar Rails, PHP (a través de <a href="http://www.caucho.com/resin-3.0/quercus/">Quercus</a>), Javascript (<a href="http://www.mozilla.org/rhino/">Rhino</a>)…</p>
+
+<p>Entre todos ellos, Groovy es uno de los más interesantes para los desarrolladores Java, porque:</p>
+
+<ul>
+<li><p>su sintaxis es muy similar a la de Java, la curva de aprendizaje es baja, no es un lenguaje diferente</p></li>
+<li><p>ofrece las ventajas de un lenguaje dinámico</p></li>
+<li><p>extiende el JDK, complementa a Java, simplifica el tratamiento de listas, maps, XML…</p></li>
+<li><p>proporciona soporte para DSLs</p></li>
+<li><p>  incorpora flavors de programación funcional (closures)…</p></li>
+</ul>
+
+
+<p>Pero lo que, desde mi punto de vista, hace a Groovy especialmente relevante para los desarrolladores Java es que dispone de un framework para desarrollo de aplicaciones web, Grails, que podemos decir equivalente en cuanto a funcionalidad, posibilidades y velocidad de desarrollo a Ruby On Rails, con todo lo que ello significa.
+Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a href="http://www.grails.org/">Grails</a>, y si lo combinamos con su <a href="http://www.cloudfoundry.com/">CloudFoundry</a>, podemos ir haciéndonos una idea de las posibilidades que esto ofrece…</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[La Dificultad Del No]]></title>
