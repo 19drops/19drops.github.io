@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[19 drops]]></title>
-  <link href="http://19drops.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Software | 19 drops]]></title>
+  <link href="http://19drops.github.io/blog/categories/software/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
   <updated>2014-08-12T22:23:32+02:00</updated>
   <id>http://19drops.github.io/</id>
