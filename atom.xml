@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-12T22:25:41+02:00</updated>
+  <updated>2014-08-12T22:32:11+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[eae]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Toma La Gallina Y Arreglatelas]]></title>
+    <link href="http://19drops.github.io/blog/2009/09/28/toma-la-gallina-y-arreglatelas/"/>
+    <updated>2009-09-28T00:00:00+02:00</updated>
+    <id>http://19drops.github.io/blog/2009/09/28/toma-la-gallina-y-arreglatelas</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Revisitando the Mythical Man Month]]></title>
