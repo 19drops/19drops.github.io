@@ -1,0 +1,30 @@
+---
+layout: post
+title: "Groovy"
+date: 2010-01-20 21:33:33 +0200
+comments: true
+categories:
+- lenguajes
+- open source
+---
+
+En los últimos dos años se ha producido la consolidación de un proceso, que venía fraguándose de un tiempo antes, en el que la JVM ha pasado de ser la máquina virtual en la que se ejecutaba Java a transformarse en una plataforma sobre la que corren un conjunto muy amplio de lenguajes. Esto es interesante fundamentalmente por tres cosas:
+
+  * es posible elegir, de entre todos estos lenguajes, el que mejor se ajuste a las necesidades de cada proyecto en particular
+  * ofrecen una gran integración e interoperabilidad con Java, de modo que su combinación es sencilla pudiendo incluso utilizarlos simultáneamente
+  * aprovechan la infraestructura de JVMs ya existentes en multitud de instalaciones
+
+
+Algunos de los más populares son: [Scala](http://www.scala-lang.org/), considerado uno de los lenguajes del futuro, [Clojure](http://clojure.org/), con un foco especial en la programación concurrente, [Groovy](http://groovy.codehaus.org/), como un superconjunto de Java, Ruby (a través de [JRuby](http://jruby.org/)), capaz de ejecutar Rails, PHP (a través de [Quercus](http://www.caucho.com/resin-3.0/quercus/)), Javascript ([Rhino](http://www.mozilla.org/rhino/))…
+
+Entre todos ellos, Groovy es uno de los más interesantes para los desarrolladores Java, porque:
+
+  * su sintaxis es muy similar a la de Java, la curva de aprendizaje es baja, no es un lenguaje diferente
+  * ofrece las ventajas de un lenguaje dinámico
+  * extiende el JDK, complementa a Java, simplifica el tratamiento de listas, maps, XML…
+  * proporciona soporte para DSLs
+  *   incorpora flavors de programación funcional (closures)…
+
+
+Pero lo que, desde mi punto de vista, hace a Groovy especialmente relevante para los desarrolladores Java es que dispone de un framework para desarrollo de aplicaciones web, Grails, que podemos decir equivalente en cuanto a funcionalidad, posibilidades y velocidad de desarrollo a Ruby On Rails, con todo lo que ello significa.
+Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de [Grails](http://www.grails.org/), y si lo combinamos con su [CloudFoundry](http://www.cloudfoundry.com/), podemos ir haciéndonos una idea de las posibilidades que esto ofrece…
