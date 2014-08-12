@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-12T22:23:32+02:00</updated>
+  <updated>2014-08-12T22:25:41+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[eae]]></name>
@@ -14,13 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Back to Blog]]></title>
+    <title type="html"><![CDATA[Revisitando the Mythical Man Month]]></title>
     <link href="http://19drops.github.io/blog/2009/08/08/revisitando-the-mythical-man-month/"/>
     <updated>2009-08-08T21:06:31+02:00</updated>
     <id>http://19drops.github.io/blog/2009/08/08/revisitando-the-mythical-man-month</id>
-    <content type="html"><![CDATA[<h1>Revisitando The Mythical Man Month</h1>
-
-<p>El otro día ordenando un montón de esos papeles que <em>te da pena tirar y no sabes muy bien por qué</em>, encontré unas notas sobre un libro que había leído hace ya algún tiempo. El libro era <a href="http://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The Mythical Man Month de Frederick Brooks</a>,  y sorprende lo actual que continua siendo a pesar de haber sido publicado hace ya más de 30 años, seguramente porque a pesar de todos los intentos de automatización y mecanización, el proceso de escribir programas…continua siendo eminentemente una actividad creativa.</p>
+    <content type="html"><![CDATA[<p>El otro día ordenando un montón de esos papeles que <em>te da pena tirar y no sabes muy bien por qué</em>, encontré unas notas sobre un libro que había leído hace ya algún tiempo. El libro era <a href="http://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The Mythical Man Month de Frederick Brooks</a>,  y sorprende lo actual que continua siendo a pesar de haber sido publicado hace ya más de 30 años, seguramente porque a pesar de todos los intentos de automatización y mecanización, el proceso de escribir programas…continua siendo eminentemente una actividad creativa.</p>
 
 <p>El libro es un “must-read” para cualquiera que se dedique al desarrollo de software y tiene aunténticas joyas:</p>
 
