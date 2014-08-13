@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-13T22:24:48+02:00</updated>
+  <updated>2014-08-13T22:27:38+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -88,6 +88,9 @@ El API es muy simple, son únicamente cuatro operaciones:</p>
 
 
 <p>Bueno, esto está bien, pero lo que realmente quería, era aprovechar este sencillo API y un wrapper sobre él en Groovy (<a href="https://github.com/enqae/akismet-client">AkismetDrops</a>), para ver por encima alguna de las características que, desde mi punto de vista, hacen de Groovy algo interesante:</p>
+
+<!--more-->
+
 
 <h4>Integración con Java</h4>
 
@@ -369,7 +372,7 @@ El API es muy simple, son únicamente cuatro operaciones:</p>
 
 <p>Esto es solamente rascar un poco la superficie, quedan fuera muchas cosas (rangos, bucles simplificados, categories, builders…). Un par de libros que tratan el tema con muchísima más amplitud son <a href="http://www.manning.com/koenig/">Groovy in Action</a> y <a href="http://pragprog.com/titles/vslg/programming-groovy">Programming Groovy</a>.</p>
 
-<p>Pero&hellip; para poder hacer todo esto desde Java, qué hay que hacer? … pues aunque parezca mentira, solamente hay que incluir un JAR… y, bueno, no se me han olvidado los ;, se pueden poner, pero no son obligatorios.</p>
+<p>Pero&hellip; para poder hacer todo esto desde Java, qué hay que hacer? &hellip; pues aunque parezca mentira, solamente hay que incluir un JAR&hellip; y, bueno, no se me han olvidado los ;  &hellip; se pueden poner, pero no son obligatorios.</p>
 ]]></content>
   </entry>
   
