@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Zappos y su decálogo"
-date: 2010-01-20 21:33:33 +0200
+date: 2010-03-02 21:33:33 +0200
 comments: true
 categories: varios
 ---

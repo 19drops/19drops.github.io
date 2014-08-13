@@ -5,7 +5,7 @@
 url: http://19drops.github.io
 title: 19 drops
 subtitle: ancora imparo - Michelangelo
-author: eae
+author: Enrique Aguilar Esnaola
 simple_search: https://www.google.com/search
 description:
 
@@ -41,7 +41,7 @@ rdiscount:
     - smart
 highlighter: pygments # default python pygments have been replaced by pygments.rb
 
-paginate: 10          # Posts per page on the blog index
+paginate: 6          # Posts per page on the blog index
 paginate_path: "posts/:num"  # Directory base for pagination URLs eg. /posts/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
@@ -95,7 +95,7 @@ disqus_short_name: 19drops
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-53796278-1
 
 # Facebook Like
 facebook_like: false

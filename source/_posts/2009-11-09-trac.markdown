@@ -1,0 +1,74 @@
+---
+layout: post
+title: "TRAC"
+date: 2009-11-09 15:28:44 +0200
+comments: true
+categories:
+- software
+- open source
+---
+
+Dentro de las herramientas de seguimiento de errores existe un amplio abanico que va desde las más simples, o más centradas en su funcionalidad original, como [Bugzilla](http://www.bugzilla.org/) o [Mantis](http://www.mantisbt.org/) (ambos OpenSource), hasta las más evolucionadas como [Redmine](http://www.redmine.org/) (OpenSource), [JIRA](http://www.atlassian.com/software/jira/) o [FogBugz](http://www.fogcreek.com/FogBUGZ/) (ambos comerciales), que complementan su funcionalidad original de seguimiento de errores con un conjunto de funcionalidades adicionales, que les permiten saltar un nivel y convertirse en herramientas con las que poder efectuar el control y la gestión de un proyecto.
+
+[TRAC](http://trac.edgewall.org/) (OpenSource) es originalmente un sistema de seguimiento de issues, esto es importante porque se posiciona no como un sistema orientado principalmente a la gestión de bugs, como Bugzilla o Mantis (aunque luego hagan más cosas), sino que busca ofrecer los mecanismos básicos para poder efectuar la gestión de un proyecto, y en este sentido se aproxima a lo ofrecido por JIRA o FogBugz.
+
+TRAC es flexible, no impone ninguna metodología, simplemente ofrece un conjunto de herramientas para que se puedan hacer las cosas, algunas de estas herramientas son:
+
+  * Sistema completo de gestión de Tickets, que permiten establecer y asignar las funcionalidades que se desarrollarán en el proceso (nuevas características, errores, tareas…)
+  * Wiki, como repositorio común de información/documentación para el proyecto (estructura del proyecto, dónde están los servidores, cómo configurar los entornos, guías de estilo y codificación…tooodooo)
+  * Integración con el sistema de control de versiones (Subversion y Git…entre otros)
+  * Roadmap, o calendario de versiones, que permite ver el grado de avance y cuándo se preve que sean liberadas las nuevas funcionalidades
+  * TimelIne, o lugar en el que se registran y se pueden revisar todas las operaciones realizadas en el proyecto desde el cambio en una página del wiki hasta el último commit en el repositorio de código.
+  * RSS como mecanismo de seguimiento en casi todos los módulos de TRAC
+  * ...otras muchas...
+
+<!--more-->
+
+Solamente con estas características sería una herramienta interesante ya que ofrece varias cosas importantes en un proyecto:
+
+  * Medio de comunicación con el cliente, en todo momento puede ver la marcha del proyecto.
+  * Punto común de recogida del conocimiento asociado al proyecto.
+  * Información al momento de la situación del proyecto en cada momento.
+
+Pero lo que caracteriza y diferencia fundamentalmente a TRAC del resto es su sistema de plugins, o mecanismo que permite extender TRAC todo lo que permita la imaginación y lo convierte casi-casi en una plataforma, y el soporte de la comunidad al mismo. Una lista completa de los pulgins disponibles para TRAC puede encontrarse en [Trac Hacks](http://trac-hacks.org/), y una lista un poco más corta:
+
+#### Gestión de usuarios
+
+  * Administración de cuentas (AccountManagerPlugin)
+  * Autenticación HTTP (HttpAuthPlugin)
+  * Integración con Active Directory (ActiveDirectoryAuthPlugin)
+  * Integración con CAS (TracCasPlugin)
+
+#### Integración de la administración con Subversion
+
+  * Integración de administración con SVN ([SvnAuthzAdminPlugin](http://trac-hacks.org/wiki/SvnAuthzAdminPlugin) y [TracSvnAuthzPlugin](http://trac-hacks.org/intertrac/TracSvnAuthzPlugin))
+
+#### Extensión del sistema de Tickets
+
+  * Gestión de campos personalizados ([TracCustomFieldAdminPlugin](http://trac-hacks.org/wiki/CustomFieldAdminPlugin))
+  * Gestión de workflows para tickets ([WorkflowEditorPlugin](http://trac-hacks.org/wiki/WorkflowEditorPlugin) y [Workflows personalizados](http://trac-hacks.org/wiki/workflow))
+  * Dependencias entre tickets ([MasterTicketsPlugin](http://trac-hacks.org/wiki/MasterTicketsPlugin))
+  * Soporte para la estimación de horas en tickets ([TracHoursPlugin](http://trac-hacks.org/wiki/TracHoursPlugin), [TimingAndEstimationPlugin](http://trac-hacks.org/wiki/TimingAndEstimationPlugin), [EstimationToolsPlugin](http://trac-hacks.org/wiki/EstimationToolsPlugin) y [SchedulingToolsPlugin](http://trac-hacks.org/wiki/SchedulingToolsPlugin))
+
+#### Integración con otros sistemas y extensiones
+
+  * Integración con Hudson ([HudsonTracIntegrationPlugin](http://trac-hacks.org/wiki/HudsonTracPlugin))
+  * Integración con Git ([GitPluginForTrac](http://trac-hacks.org/wiki/GitPlugin))
+  * Integración con Agilo-SCRUM ([AgiloForScrumPlugin](http://trac-hacks.org/wiki/AgiloForScrumPlugin))
+
+##### Otros
+
+  * Gestión de parámetros de inicialización de TRAC ([IniAdminPlugin](http://trac-hacks.org/wiki/IniAdminPlugin))
+  * Personalización del Timeline ([TimelineCheckinFilterPlugin](http://trac-hacks.org/wiki/TimelineCheckinFilterPlugin) y [TimelineUserFilterPlugin](http://trac-hacks.org/wiki/TimelineUserFilterPlugin))
+  * Sistema de Tags ([TagsPlugin](http://trac-hacks.org/wiki/TagsPlugin))
+
+##### Interoperabilidad
+
+De todos los plugins existentes para TRAC el más interesante de todos es el [XML-RPC Plugin](http://trac-hacks.org/intertrac/XmlRpcPlugin) porque expone al exterior toda la funcionalidad de un servidor TRAC para que pueda integrarse con cualquier lenguaje y para cualquier cosa. Por ejemplo se podría:
+
+  * Construir un sistema simplificado para la entrada de tickets-bugs solamente con los datos estrictamente necesarios.
+  * Realizar la alimentación inicial de issues en un proyecto a partir de un MS Project
+  * Generar la descripción inicial de tareas a partir de una definición funcional decente
+  * ...
+
+y todo ello en el lenguaje y la forma (desktop, web…) que mejor nos venga. Espero poder terminar en breve [TRACdrops](https://github.com/enqae/trac-api), y poder disponer de TRAC desde Java con toda su potencia de una forma simple...
