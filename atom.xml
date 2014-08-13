@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-13T21:50:29+02:00</updated>
+  <updated>2014-08-13T21:58:13+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -158,6 +158,9 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 <li>RSS como mecanismo de seguimiento en casi todos los módulos de TRAC</li>
 <li>&hellip;otras muchas&hellip;</li>
 </ul>
+
+
+<!--more-->
 
 
 <p>Solamente con estas características sería una herramienta interesante ya que ofrece varias cosas importantes en un proyecto:</p>
