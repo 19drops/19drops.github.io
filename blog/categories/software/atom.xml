@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software | 19 drops]]></title>
   <link href="http://19drops.github.io/blog/categories/software/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-13T21:58:13+02:00</updated>
+  <updated>2014-08-13T22:24:48+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -20,6 +20,301 @@
     <id>http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence</id>
     <content type="html"><![CDATA[<p>Bueno pues todas las herramientas de Atlassian están estos días un poco más asequibles, la verdad es que me parece que tienen esta opción desde enero, pero lo he visto hoy. Están ofreciendo un paquete “starter” que incluye un acceso a todas sus herramientas (no estoy seguro si a Clover también) para 10 usuarios por 10$ ($60 aprox. 44€ el conjunto completo JIRA, Confluence, Green Hopper, Bamboo, FishEye y Crowd).
 La verdad es que para pequeños grupos de trabajo que quieran utilizar estas herramientas es muy interesante, además lo que recaudan con esto lo donan enteramente a Room To Read, que es una gente que se dedica a apoyar la educación de niños en zonas con pocas posibilidades (<em>De la instrucción nace la grandeza a las naciones – José Rizal</em>).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Akismet Y Groovy]]></title>
+    <link href="http://19drops.github.io/blog/2010/02/03/akismet-y-groovy/"/>
+    <updated>2010-02-03T19:22:37+01:00</updated>
+    <id>http://19drops.github.io/blog/2010/02/03/akismet-y-groovy</id>
+    <content type="html"><![CDATA[<p><a href="http://akismet.com/">Akismet</a> es el servicio de detección de spam que utiliza WordPress, pero no solamente es utilizable desde WordPress, sino que cualquier aplicación puede utilizarlo a través del <a href="http://akismet.com/development/api/">API REST</a> que ofrece. Akismet no es un servicio gratuito, pero las modalidades de uso que ofrece son bastante asequibles, teniendo en cuenta los ahorros que puede suponer el no tener que tratar con el spam en tu sistema (o al menos, no tanto como sin él).
+El API es muy simple, son únicamente cuatro operaciones:</p>
+
+<ul>
+<li>Verificar la clave de uso (verifiy-key)</li>
+<li>Comprobar un comentario (comment-check)</li>
+<li>Notificar un falso negativo (submit-spam)</li>
+<li>Notificar un falso positico (submit-ham)</li>
+</ul>
+
+
+<p>Bueno, esto está bien, pero lo que realmente quería, era aprovechar este sencillo API y un wrapper sobre él en Groovy (<a href="https://github.com/enqae/akismet-client">AkismetDrops</a>), para ver por encima alguna de las características que, desde mi punto de vista, hacen de Groovy algo interesante:</p>
+
+<h4>Integración con Java</h4>
+
+<p>Groovy se compila a bytecode y su sintaxis es muy similar a la de Java, ello hace que la utilización de cualquier librería Java existente sea trivial:</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.apache.commons.logging.Log
+</span><span class='line'>import org.apache.commons.logging.LogFactory
+</span><span class='line'>&hellip;
+</span><span class='line'>Log logger = LogFactory.getLog(this.class.name)
+</span><span class='line'>&hellip;</span></code></pre></td></tr></table></div></figure></p>
+
+<h4> Sintaxis cómoda para el manejo de listas y mapas</h4>
+
+<p>Las listas y mapas probablemente sean uno de los elementos más utilizados en los programas, por lo que una sintaxis que simplifique su uso, sería muy apreciada:</p>
+
+<p>Declarar una List</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def validMethods = [&lsquo;isThisCommentSpam&rsquo;: &ldquo;comment-check&rdquo;,
+</span><span class='line'>                      &lsquo;thisCommentShouldBeSpam&rsquo;: &ldquo;submit-spam&rdquo;,
+</span><span class='line'>                      &lsquo;thisCommentIsFalsePositive&rsquo;: &ldquo;submit-ham&rdquo;]</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Declarar e iterar por los valores de un Map</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def dataToPost = [:] // Map
+</span><span class='line'>  &hellip;
+</span><span class='line'>  def queryString = [] // List&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  parameters.each {k, v ->
+</span><span class='line'>     queryString &lt;&lt; &ldquo;${k}=${URLEncoder.encode(v)}&rdquo;
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure></p>
+
+<h4>Sentencias de control de flujo potenciadas</h4>
+
+<p>Las sentencias <strong>if</strong> y <strong>switch</strong> están muy potenciadas, especialmente la sentencia switch, que contrariamente a lo que ocurre en Java, que solamente admite enteros, en Groovy admite casi cualquier cosa (cadenas, mapas, rangos…):</p>
+
+<ul>
+<li>power switch</li>
+</ul>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def requiredParameters = [AkismetComment.BLOG,
+</span><span class='line'>                            AkismetComment.USER_IP, AkismetComment.USER_AGENT,
+</span><span class='line'>                            AkismetComment.COMMENT_CONTENT]
+</span><span class='line'>  &hellip;
+</span><span class='line'>  &hellip;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  switch (property.key) {
+</span><span class='line'>      case &ldquo;class&rdquo;:
+</span><span class='line'>      case &ldquo;metaClass&rdquo;:
+</span><span class='line'>        break
+</span><span class='line'>      case &ldquo;otherData&rdquo;:
+</span><span class='line'>        property.value?.each {k, v ->
+</span><span class='line'>          if (v)
+</span><span class='line'>            dataToPost.put(k, v?.toString())
+</span><span class='line'>         }
+</span><span class='line'>        break
+</span><span class='line'>      case requiredParameters:
+</span><span class='line'>        if (property.value?.trim()) {
+</span><span class='line'>          dataToPost.&ldquo;${property.key}&rdquo; = property.value.toString()
+</span><span class='line'>        } else {
+</span><span class='line'>          if (property.key == &lsquo;blog&rsquo;) {
+</span><span class='line'>            dataToPost.blog = blog
+</span><span class='line'>          } else {
+</span><span class='line'>            throw new IllegalArgumentException(&ldquo;Required parameter: ${property.key}&rdquo;)
+</span><span class='line'>          }
+</span><span class='line'>        }
+</span><span class='line'>        break
+</span><span class='line'>      case nonRequiredParameters:
+</span><span class='line'>        if (property.value?.trim()) {
+</span><span class='line'>          dataToPost.&ldquo;${property.key}&rdquo; = property.value
+</span><span class='line'>        }
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure></p>
+
+<h4>Identity/with</h4>
+
+<p>Esto en realidad es casi una curiosidad, pero si vas a realizar múltiples operaciones sobre un objeto, el tener que escribir el nombre del objeto para cada operación puede ser un poco tedioso, y aquí la identity nos ahorra unas pulsaciones:</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Writer writer = new OutputStreamWriter(connection.outputStream)
+</span><span class='line'>      writer.with {
+</span><span class='line'>        &hellip;
+</span><span class='line'>        write queryString.join(&lsquo;&amp;&rsquo;) // writer.wrie
+</span><span class='line'>        flush() //writer.flush
+</span><span class='line'>        close() //writer.close
+</span><span class='line'>      }</span></code></pre></td></tr></table></div></figure></p>
+
+<h4>Closures</h4>
+
+<p>Esta es una de las características más importantes de Groovy, que le proporcionan las capacidades de los lenguajes funcionales. Si trabajas con Groovy, tienes que manejarte con las closures porque están en la base del lenguaje. Es cierto, que requieren un cierto tiempo para acostumbrarse, pero luego se hacen imprescindibles.</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Closure response200 = {text ->
+</span><span class='line'>                            Boolean result = (text == &lsquo;true&rsquo;) ;
+</span><span class='line'>                            if (logger.isDebugEnabled()) {
+</span><span class='line'>                              if (!result) {
+</span><span class='line'>                                if (text != &lsquo;false&rsquo;) {
+</span><span class='line'>                                  logger.debug(&ldquo;Message from Akismet: ${text}&rdquo;)
+</span><span class='line'>                                }
+</span><span class='line'>                              }
+</span><span class='line'>                            }
+</span><span class='line'>                            return result
+</span><span class='line'>                        }
+</span><span class='line'>&hellip;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p> def validMethodsActions = [&lsquo;isThisCommentSpam&rsquo;: response200,
+</span><span class='line'>                             &lsquo;thisCommentShouldBeSpam&rsquo;: response200Log,
+</span><span class='line'>                             &lsquo;thisCommentIsFalsePositive&rsquo;: response200Log]
+</span><span class='line'>&hellip;</span></code></pre></td></tr></table></div></figure></p>
+
+<h4>Comportamiento dinámico</h4>
+
+<p>Groovy es un lenguaje dinámico, es decir, es posible modificar su comportamiento durante la propia ejecución, y esto va desde modificar ligeramente el comportamiento de determinados métodos de un objeto, hasta generar nuevos métodos para un objeto en tiempo de ejecución, existe incluso una forma de atender a métodos que no existen. Y esto para qué sirve, bueno al principio puede ser un poco complicado de ver pero esta característica es la que da soporte entre otras cosas a un framework como Grails (que es una de las cosas que hacen especialmente intersante a Groovy).</p>
+
+<ul>
+<li>AOP fácil:</li>
+</ul>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Declara la clase como interceptable
+</span><span class='line'>class Akismet implements GroovyInterceptable {
+</span><span class='line'>  &hellip;
+</span><span class='line'>  // Declara los métodos del API vacíos
+</span><span class='line'>  Boolean isApiKeyValid() {}
+</span><span class='line'>  Boolean isThisCommentSpam(AkismetComment comment) {}
+</span><span class='line'>  Boolean thisCommentShouldBeSpam(AkismetComment comment) {}
+</span><span class='line'>  def thisCommentIsFalsePositive(AkismetComment comment) {}
+</span><span class='line'>  &hellip;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  def validMethods = [&lsquo;isThisCommentSpam&rsquo;: &ldquo;comment-check&rdquo;,
+</span><span class='line'>                      &lsquo;thisCommentShouldBeSpam&rsquo;: &ldquo;submit-spam&rdquo;,
+</span><span class='line'>                      &lsquo;thisCommentIsFalsePositive&rsquo;: &ldquo;submit-ham&rdquo;]
+</span><span class='line'>  &hellip;
+</span><span class='line'>  // Declara el interceptor - Todas las llamadas vendrán por aquí
+</span><span class='line'>  def invokeMethod(String name, args) {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>if (validMethods[name]) {
+</span><span class='line'>  // Si es uno de los métodos del API se tratarán aquí enviándolos a Akismet
+</span><span class='line'>
+</span><span class='line'>  ...
+</span><span class='line'>} else {
+</span><span class='line'>  // Si no es uno de los métodos del API, miramos si es un método que existe o no
+</span><span class='line'>
+</span><span class='line'>  def otherMethod = Akismet.metaClass.getMetaMethod(name, args)
+</span><span class='line'>  if (otherMethod) {
+</span><span class='line'>
+</span><span class='line'>    // El método existe y cedemos el control a su implementación ...
+</span><span class='line'>    return otherMethod.invoke(this, args)
+</span><span class='line'>  } else {
+</span><span class='line'>
+</span><span class='line'>    // Se solicita un método que no existe, y cedemos el control al gestor por defecto, aunque
+</span><span class='line'>    // podríamos haber hecho cualquier otra cosa...
+</span><span class='line'>    Akismet.metaClass.invokeMissingMethod(this, name, args)
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  }&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  &hellip;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Esto es solamente rascar un poco la superficie, quedan fuera muchas cosas (rangos, bucles simplificados, categories, builders…). Un par de libros que tratan el tema con muchísima más amplitud son <a href="http://www.manning.com/koenig/">Groovy in Action</a> y <a href="http://pragprog.com/titles/vslg/programming-groovy">Programming Groovy</a>.</p>
+
+<p>Pero&hellip; para poder hacer todo esto desde Java, qué hay que hacer? … pues aunque parezca mentira, solamente hay que incluir un JAR… y, bueno, no se me han olvidado los ;, se pueden poner, pero no son obligatorios.</p>
 ]]></content>
   </entry>
   
@@ -174,23 +469,6 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
 
 
 <p>Los tres primeros son evidentes, pero el cuarto es un poco más sutil pero muy importante. El <em>coraje</em> de Beck hace referencia por una parte a la capacidad de reconocer las situaciones en las que existe <em>peligro</em> (porque hemos implementado algo incorrectamente, porque el alcance se nos va de las manos, porque no podemos alcanzar los plazos…), y por otra a la capacidad para plantear la situación con claridad y reconducirla de manera activa hacia una solución.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Revisitando the Mythical Man Month]]></title>
-    <link href="http://19drops.github.io/blog/2009/08/08/revisitando-the-mythical-man-month/"/>
-    <updated>2009-08-08T21:06:31+02:00</updated>
-    <id>http://19drops.github.io/blog/2009/08/08/revisitando-the-mythical-man-month</id>
-    <content type="html"><![CDATA[<p>El otro día ordenando un montón de esos papeles que <em>te da pena tirar y no sabes muy bien por qué</em>, encontré unas notas sobre un libro que había leído hace ya algún tiempo. El libro era <a href="http://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The Mythical Man Month de Frederick Brooks</a>,  y sorprende lo actual que continua siendo a pesar de haber sido publicado hace ya más de 30 años, seguramente porque a pesar de todos los intentos de automatización y mecanización, el proceso de escribir programas…continua siendo eminentemente una actividad creativa.</p>
-
-<p>El libro es un “must-read” para cualquiera que se dedique al desarrollo de software y tiene aunténticas joyas:</p>
-
-<ul>
-<li><p>Pregunta: ¿Cómo puede un proyecto retrasarse un año?</p></li>
-<li><p>Respuesta: Día tras día</p></li>
-</ul>
-
 ]]></content>
   </entry>
   
