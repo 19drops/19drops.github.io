@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-13T22:27:38+02:00</updated>
+  <updated>2014-08-13T22:28:56+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -68,6 +68,41 @@ D.D.: Conrad, es mi profesión…
     <id>http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence</id>
     <content type="html"><![CDATA[<p>Bueno pues todas las herramientas de Atlassian están estos días un poco más asequibles, la verdad es que me parece que tienen esta opción desde enero, pero lo he visto hoy. Están ofreciendo un paquete “starter” que incluye un acceso a todas sus herramientas (no estoy seguro si a Clover también) para 10 usuarios por 10$ ($60 aprox. 44€ el conjunto completo JIRA, Confluence, Green Hopper, Bamboo, FishEye y Crowd).
 La verdad es que para pequeños grupos de trabajo que quieran utilizar estas herramientas es muy interesante, además lo que recaudan con esto lo donan enteramente a Room To Read, que es una gente que se dedica a apoyar la educación de niños en zonas con pocas posibilidades (<em>De la instrucción nace la grandeza a las naciones – José Rizal</em>).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Zappos Y Su Decálogo]]></title>
+    <link href="http://19drops.github.io/blog/2010/03/02/zappos-y-su-decalogo/"/>
+    <updated>2010-03-02T20:33:33+01:00</updated>
+    <id>http://19drops.github.io/blog/2010/03/02/zappos-y-su-decalogo</id>
+    <content type="html"><![CDATA[<p>Estaba leyendo hoy una noticia sobre <a href="http://www.zappos.com/">Zappos</a>, uno de los mayores sitios de comercio electrónico de USA (recientemente adquirido por Amazon), acerca del cambio de plataforma que han realizado, y he ido a echar un ojo a sus cabeceras a ver si se veía algo por ahí (sip, a veces se ven cosas), y esta vez sí que se veía algo…
+Ellos añaden dos cabeceras simpáticas:</p>
+
+<ul>
+<li><p><em>X-Core-Value</em>: en la que ponen en cada petición un punto de una especie de decálogo</p></li>
+<li><p><em>X-Recruiting</em>: en la que literalmente ponen
+“If you’re reading this, maybe you should be working at Zappos instead. Check out jobs.zappos.com”</p></li>
+</ul>
+
+
+<p>Sobre su decálogo:</p>
+
+<ul>
+<li>Deliver WOW Through Service</li>
+<li>Embrace and Drive Change</li>
+<li>Create Fun and A Little Weirdness</li>
+<li>Be Adventurous, Creative, and Open-Minded</li>
+<li>Pursue Growth and Learning</li>
+<li>Build Open and Honest Relationships With Communication</li>
+<li>Build a Positive Team and Family Spirit</li>
+<li>Do More With Less</li>
+<li>Be Passionate and Determined</li>
+<li>Be Humble</li>
+</ul>
+
+
+<p>Curioso, y simpático…estos de Zappos…parece que aún queda gente que aprecia el trabajo bien hecho, y además con humor.</p>
 ]]></content>
   </entry>
   
@@ -373,41 +408,6 @@ El API es muy simple, son únicamente cuatro operaciones:</p>
 <p>Esto es solamente rascar un poco la superficie, quedan fuera muchas cosas (rangos, bucles simplificados, categories, builders…). Un par de libros que tratan el tema con muchísima más amplitud son <a href="http://www.manning.com/koenig/">Groovy in Action</a> y <a href="http://pragprog.com/titles/vslg/programming-groovy">Programming Groovy</a>.</p>
 
 <p>Pero&hellip; para poder hacer todo esto desde Java, qué hay que hacer? &hellip; pues aunque parezca mentira, solamente hay que incluir un JAR&hellip; y, bueno, no se me han olvidado los ;  &hellip; se pueden poner, pero no son obligatorios.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Zappos Y Su Decálogo]]></title>
-    <link href="http://19drops.github.io/blog/2010/01/20/zappos-y-su-decalogo/"/>
-    <updated>2010-01-20T20:33:33+01:00</updated>
-    <id>http://19drops.github.io/blog/2010/01/20/zappos-y-su-decalogo</id>
-    <content type="html"><![CDATA[<p>Estaba leyendo hoy una noticia sobre <a href="http://www.zappos.com/">Zappos</a>, uno de los mayores sitios de comercio electrónico de USA (recientemente adquirido por Amazon), acerca del cambio de plataforma que han realizado, y he ido a echar un ojo a sus cabeceras a ver si se veía algo por ahí (sip, a veces se ven cosas), y esta vez sí que se veía algo…
-Ellos añaden dos cabeceras simpáticas:</p>
-
-<ul>
-<li><p><em>X-Core-Value</em>: en la que ponen en cada petición un punto de una especie de decálogo</p></li>
-<li><p><em>X-Recruiting</em>: en la que literalmente ponen
-“If you’re reading this, maybe you should be working at Zappos instead. Check out jobs.zappos.com”</p></li>
-</ul>
-
-
-<p>Sobre su decálogo:</p>
-
-<ul>
-<li>Deliver WOW Through Service</li>
-<li>Embrace and Drive Change</li>
-<li>Create Fun and A Little Weirdness</li>
-<li>Be Adventurous, Creative, and Open-Minded</li>
-<li>Pursue Growth and Learning</li>
-<li>Build Open and Honest Relationships With Communication</li>
-<li>Build a Positive Team and Family Spirit</li>
-<li>Do More With Less</li>
-<li>Be Passionate and Determined</li>
-<li>Be Humble</li>
-</ul>
-
-
-<p>Curioso, y simpático…estos de Zappos…parece que aún queda gente que aprecia el trabajo bien hecho, y además con humor.</p>
 ]]></content>
   </entry>
   
