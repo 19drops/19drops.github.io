@@ -4,10 +4,10 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.github.io/atom.xml" rel="self"/>
   <link href="http://19drops.github.io/"/>
-  <updated>2014-08-13T21:46:26+02:00</updated>
+  <updated>2014-08-13T21:50:29+02:00</updated>
   <id>http://19drops.github.io/</id>
   <author>
-    <name><![CDATA[eae]]></name>
+    <name><![CDATA[Enrique Aguilar Esnaola]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -171,7 +171,7 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 
 <p>Pero lo que caracteriza y diferencia fundamentalmente a TRAC del resto es su sistema de plugins, o mecanismo que permite extender TRAC todo lo que permita la imaginación y lo convierte casi-casi en una plataforma, y el soporte de la comunidad al mismo. Una lista completa de los pulgins disponibles para TRAC puede encontrarse en <a href="http://trac-hacks.org/">Trac Hacks</a>, y una lista un poco más corta:</p>
 
-<h2> Gestión de usuarios</h2>
+<h4> Gestión de usuarios</h4>
 
 <ul>
 <li>Administración de cuentas (AccountManagerPlugin)</li>
@@ -181,14 +181,14 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 </ul>
 
 
-<h2> Integración de la administración con Subversion</h2>
+<h4> Integración de la administración con Subversion</h4>
 
 <ul>
 <li>Integración de administración con SVN (<a href="http://trac-hacks.org/wiki/SvnAuthzAdminPlugin">SvnAuthzAdminPlugin</a> y <a href="http://trac-hacks.org/intertrac/TracSvnAuthzPlugin">TracSvnAuthzPlugin</a>)</li>
 </ul>
 
 
-<h2>Extensión del sistema de Tickets</h2>
+<h4>Extensión del sistema de Tickets</h4>
 
 <ul>
 <li>Gestión de campos personalizados (<a href="http://trac-hacks.org/wiki/CustomFieldAdminPlugin">TracCustomFieldAdminPlugin</a>)</li>
@@ -198,7 +198,7 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 </ul>
 
 
-<h2> Integración con otros sistemas y extensiones</h2>
+<h4> Integración con otros sistemas y extensiones</h4>
 
 <ul>
 <li>Integración con Hudson (<a href="http://trac-hacks.org/wiki/HudsonTracPlugin">HudsonTracIntegrationPlugin</a>)</li>
@@ -207,7 +207,7 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 </ul>
 
 
-<h3> Otros</h3>
+<h5> Otros</h5>
 
 <ul>
 <li>Gestión de parámetros de inicialización de TRAC (<a href="http://trac-hacks.org/wiki/IniAdminPlugin">IniAdminPlugin</a>)</li>
@@ -216,7 +216,7 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
 </ul>
 
 
-<h3>Interoperabilidad</h3>
+<h5>Interoperabilidad</h5>
 
 <p>De todos los plugins existentes para TRAC el más interesante de todos es el <a href="http://trac-hacks.org/intertrac/XmlRpcPlugin">XML-RPC Plugin</a> porque expone al exterior toda la funcionalidad de un servidor TRAC para que pueda integrarse con cualquier lenguaje y para cualquier cosa. Por ejemplo se podría:</p>
 
