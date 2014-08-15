@@ -4,7 +4,7 @@
 
 url: http://19drops.github.io
 title: 19 drops
-subtitle: ancora imparo &larr; michelangelo
+subtitle: ancora imparo &larr; (michelangelo)
 author: Enrique Aguilar Esnaola
 simple_search: https://www.google.com/search
 description:
@@ -55,7 +55,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-blog_index_asides: [asides/github.html]
+# blog_index_asides:
 # post_asides:
 # page_asides:
 
