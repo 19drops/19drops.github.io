@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Varios | 19 drops]]></title>
-  <link href="http://19drops.github.io/blog/categories/varios/atom.xml" rel="self"/>
-  <link href="http://19drops.github.io/"/>
-  <updated>2014-08-15T19:43:52+02:00</updated>
-  <id>http://19drops.github.io/</id>
+  <link href="http://19drops.com/blog/categories/varios/atom.xml" rel="self"/>
+  <link href="http://19drops.com/"/>
+  <updated>2014-09-07T10:36:06+02:00</updated>
+  <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[érase Una Vez..]]></title>
-    <link href="http://19drops.github.io/blog/2011/10/09/erase-una-vez/"/>
+    <link href="http://19drops.com/blog/2011/10/09/erase-una-vez/"/>
     <updated>2011-10-09T19:13:01+02:00</updated>
-    <id>http://19drops.github.io/blog/2011/10/09/erase-una-vez</id>
+    <id>http://19drops.com/blog/2011/10/09/erase-una-vez</id>
     <content type="html"><![CDATA[<p>  &hellip; una Empresa que fabricaba ordenadores, y en un momento dado decidió ceder
   la fabricación de algunos circuitos a un Suministrador.
   Al de un tiempo el Suministrador le propuso:</p>
@@ -43,9 +43,9 @@
   
   <entry>
     <title type="html"><![CDATA[Es Mi Profesión...]]></title>
-    <link href="http://19drops.github.io/blog/2011/09/09/es-mi-profesion/"/>
+    <link href="http://19drops.com/blog/2011/09/09/es-mi-profesion/"/>
     <updated>2011-09-09T10:07:11+02:00</updated>
-    <id>http://19drops.github.io/blog/2011/09/09/es-mi-profesion</id>
+    <id>http://19drops.com/blog/2011/09/09/es-mi-profesion</id>
     <content type="html"><![CDATA[<p>En la tercera temporada de <a href="http://www.amctv.com/shows/mad-men">Mad Men</a> Don Draper conoce casualmente a Conrad Hilton, el fundador de la cadena de hoteles, y se hacen amigos. En un capítulo posterior Conrad llama a Don para comentarle “algo” y, más o menos, lo que comentan es lo siguiente:</p>
 
 <pre><code>C.H.: Don, tengo aquí unos bocetos para una nueva campaña. ¿Qué te parecen?
@@ -63,9 +63,9 @@ D.D.: Conrad, es mi profesión…
   
   <entry>
     <title type="html"><![CDATA[Atlassian JIRA + Confluence]]></title>
-    <link href="http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence/"/>
+    <link href="http://19drops.com/blog/2010/03/16/atlassian-jira-confluence/"/>
     <updated>2010-03-16T20:45:22+01:00</updated>
-    <id>http://19drops.github.io/blog/2010/03/16/atlassian-jira-confluence</id>
+    <id>http://19drops.com/blog/2010/03/16/atlassian-jira-confluence</id>
     <content type="html"><![CDATA[<p>Bueno pues todas las herramientas de Atlassian están estos días un poco más asequibles, la verdad es que me parece que tienen esta opción desde enero, pero lo he visto hoy. Están ofreciendo un paquete “starter” que incluye un acceso a todas sus herramientas (no estoy seguro si a Clover también) para 10 usuarios por 10$ ($60 aprox. 44€ el conjunto completo JIRA, Confluence, Green Hopper, Bamboo, FishEye y Crowd).
 La verdad es que para pequeños grupos de trabajo que quieran utilizar estas herramientas es muy interesante, además lo que recaudan con esto lo donan enteramente a Room To Read, que es una gente que se dedica a apoyar la educación de niños en zonas con pocas posibilidades (<em>De la instrucción nace la grandeza a las naciones – José Rizal</em>).</p>
 ]]></content>
@@ -73,9 +73,9 @@ La verdad es que para pequeños grupos de trabajo que quieran utilizar estas her
   
   <entry>
     <title type="html"><![CDATA[Zappos Y Su Decálogo]]></title>
-    <link href="http://19drops.github.io/blog/2010/03/02/zappos-y-su-decalogo/"/>
+    <link href="http://19drops.com/blog/2010/03/02/zappos-y-su-decalogo/"/>
     <updated>2010-03-02T20:33:33+01:00</updated>
-    <id>http://19drops.github.io/blog/2010/03/02/zappos-y-su-decalogo</id>
+    <id>http://19drops.com/blog/2010/03/02/zappos-y-su-decalogo</id>
     <content type="html"><![CDATA[<p>Estaba leyendo hoy una noticia sobre <a href="http://www.zappos.com/">Zappos</a>, uno de los mayores sitios de comercio electrónico de USA (recientemente adquirido por Amazon), acerca del cambio de plataforma que han realizado, y he ido a echar un ojo a sus cabeceras a ver si se veía algo por ahí (sip, a veces se ven cosas), y esta vez sí que se veía algo…
 Ellos añaden dos cabeceras simpáticas:</p>
 

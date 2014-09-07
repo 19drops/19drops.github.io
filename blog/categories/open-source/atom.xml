@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Open Source | 19 drops]]></title>
-  <link href="http://19drops.github.io/blog/categories/open-source/atom.xml" rel="self"/>
-  <link href="http://19drops.github.io/"/>
-  <updated>2014-08-15T19:43:52+02:00</updated>
-  <id>http://19drops.github.io/</id>
+  <link href="http://19drops.com/blog/categories/open-source/atom.xml" rel="self"/>
+  <link href="http://19drops.com/"/>
+  <updated>2014-09-07T10:36:06+02:00</updated>
+  <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Akismet Y Groovy]]></title>
-    <link href="http://19drops.github.io/blog/2010/02/03/akismet-y-groovy/"/>
+    <link href="http://19drops.com/blog/2010/02/03/akismet-y-groovy/"/>
     <updated>2010-02-03T19:22:37+01:00</updated>
-    <id>http://19drops.github.io/blog/2010/02/03/akismet-y-groovy</id>
+    <id>http://19drops.com/blog/2010/02/03/akismet-y-groovy</id>
     <content type="html"><![CDATA[<p><a href="http://akismet.com/">Akismet</a> es el servicio de detección de spam que utiliza WordPress, pero no solamente es utilizable desde WordPress, sino que cualquier aplicación puede utilizarlo a través del <a href="http://akismet.com/development/api/">API REST</a> que ofrece. Akismet no es un servicio gratuito, pero las modalidades de uso que ofrece son bastante asequibles, teniendo en cuenta los ahorros que puede suponer el no tener que tratar con el spam en tu sistema (o al menos, no tanto como sin él).
 El API es muy simple, son únicamente cuatro operaciones:</p>
 
@@ -313,9 +313,9 @@ El API es muy simple, son únicamente cuatro operaciones:</p>
   
   <entry>
     <title type="html"><![CDATA[Groovy]]></title>
-    <link href="http://19drops.github.io/blog/2010/01/20/groovy/"/>
+    <link href="http://19drops.com/blog/2010/01/20/groovy/"/>
     <updated>2010-01-20T20:33:33+01:00</updated>
-    <id>http://19drops.github.io/blog/2010/01/20/groovy</id>
+    <id>http://19drops.com/blog/2010/01/20/groovy</id>
     <content type="html"><![CDATA[<p>En los últimos dos años se ha producido la consolidación de un proceso, que venía fraguándose de un tiempo antes, en el que la JVM ha pasado de ser la máquina virtual en la que se ejecutaba Java a transformarse en una plataforma sobre la que corren un conjunto muy amplio de lenguajes. Esto es interesante fundamentalmente por tres cosas:</p>
 
 <ul>
@@ -345,9 +345,9 @@ Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a h
   
   <entry>
     <title type="html"><![CDATA[TRAC]]></title>
-    <link href="http://19drops.github.io/blog/2009/11/09/trac/"/>
+    <link href="http://19drops.com/blog/2009/11/09/trac/"/>
     <updated>2009-11-09T14:28:44+01:00</updated>
-    <id>http://19drops.github.io/blog/2009/11/09/trac</id>
+    <id>http://19drops.com/blog/2009/11/09/trac</id>
     <content type="html"><![CDATA[<p>Dentro de las herramientas de seguimiento de errores existe un amplio abanico que va desde las más simples, o más centradas en su funcionalidad original, como <a href="http://www.bugzilla.org/">Bugzilla</a> o <a href="http://www.mantisbt.org/">Mantis</a> (ambos OpenSource), hasta las más evolucionadas como <a href="http://www.redmine.org/">Redmine</a> (OpenSource), <a href="http://www.atlassian.com/software/jira/">JIRA</a> o <a href="http://www.fogcreek.com/FogBUGZ/">FogBugz</a> (ambos comerciales), que complementan su funcionalidad original de seguimiento de errores con un conjunto de funcionalidades adicionales, que les permiten saltar un nivel y convertirse en herramientas con las que poder efectuar el control y la gestión de un proyecto.</p>
 
 <p><a href="http://trac.edgewall.org/">TRAC</a> (OpenSource) es originalmente un sistema de seguimiento de issues, esto es importante porque se posiciona no como un sistema orientado principalmente a la gestión de bugs, como Bugzilla o Mantis (aunque luego hagan más cosas), sino que busca ofrecer los mecanismos básicos para poder efectuar la gestión de un proyecto, y en este sentido se aproxima a lo ofrecido por JIRA o FogBugz.</p>
