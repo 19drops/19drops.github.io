@@ -2,11 +2,11 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://19drops.github.io
+url: http://19drops.com
 title: 19 drops
 subtitle: ancora imparo &larr; (michelangelo)
 author: Enrique Aguilar Esnaola
-simple_search: https://www.google.com/search
+simple_search: 
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -41,7 +41,7 @@ rdiscount:
     - smart
 highlighter: pygments # default python pygments have been replaced by pygments.rb
 
-paginate: 6          # Posts per page on the blog index
+paginate: 10          # Posts per page on the blog index
 paginate_path: "posts/:num"  # Directory base for pagination URLs eg. /posts/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
@@ -55,8 +55,8 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-# blog_index_asides:
-# post_asides:
+#blog_index_asides: [asides/recent_posts.html]
+#post_asides: [asides/recent_posts.html]
 # page_asides:
 
 # ----------------------- #
