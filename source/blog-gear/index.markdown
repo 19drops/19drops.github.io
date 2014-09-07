@@ -10,5 +10,6 @@ footer: true
 I'd like to thank to:
 
   * [Octopress](http://octopress.org/)
+  * [GitHub Pages](https://pages.github.com/)
   * [readify theme](https://github.com/vladigleba/readify)
   * [Atom Editor](https://github.com/atom/atom)
