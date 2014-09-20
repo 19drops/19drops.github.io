@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>No Nulls - 19 drops</title>
+  <meta name="author" content="Enrique Aguilar Esnaola">
+
+  
+  <meta name="description" content="Una de las nuevas features incorporadas en Java 8 es Optional, que representa la
+posibilidad de que un concepto pueda no tener valor, y su aplicación &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://19drops.com/blog/2014/09/20/no-nulls">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="19 drops" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-53796278-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">19 drops</a></h1>
+  
+    <h2>ancora imparo &larr; (michelangelo)</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog-gear">Blogging Gear</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">No Nulls</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-20T15:46:38+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:46 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://19drops.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
+posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
+al aplicarlo al valor retornado por un método/función.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">address</span> <span class="o">=</span>
+</span><span class='line'>        <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">address</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>       <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Aquí son dos las cuestiones a tener en cuenta:</p>
+
+<ol>
+<li> No queda modelizado que es posible que la información que se solicita no exista</li>
+<li> Si la información no existe, o se retorna un null, o se lanza una excepción</li>
+</ol>
+
+
+<p>Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.</p>
+
+<p><strong>Optional</strong> permite modelizar la posible ausencia de información y evita la &ldquo;excepcionalidad&rdquo; de la situación.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">){</span>
+</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'>  <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">)</span>
+</span><span class='line'>                 <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">address</span> <span class="o">-&gt;</span> <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">));</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
+programa es el mismo, no hay tratamientos especiales.</p>
+
+<!-- more -->
+
+
+<p>Este es el uso <em>canónico</em> de Optional en Java (valor de retorno en una función), que se espera que vaya siendo aplicado
+según se vayan migrando librerías, pero llevará tiempo y mientras continuará habiendo nulls.</p>
+
+<p>El uso de Optional es simple:</p>
+
+<h1>Creación de un Optional</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringOptional</span> <span class="o">=</span>
+</span><span class='line'>                 <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;this string&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringOrEmptyOptional</span> <span class="o">=</span>
+</span><span class='line'>                 <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">theUnknownString</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Una feature que ayuda con el tratamiento de nulls es que un Optional de null es un Optional.empty(),
+aunque debe ser creado con <code>ofNullable</code>.</p>
+
+<p><strong>Tip 1</strong>: si no se está seguro del origen de la variable <code>ofNullable</code> es más seguro.</p>
+
+<h1>Extracción del valor</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(</span><span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">optionalLong</span><span class="o">){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Long</span> <span class="n">longOptional</span> <span class="o">=</span>
+</span><span class='line'>                    <span class="n">optionalLong</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Long</span> <span class="n">longOrElseOptional</span> <span class="o">=</span>
+</span><span class='line'>                    <span class="n">optionalLong</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="mi">0L</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Long</span> <span class="n">longOrElseCalculatedOptional</span> <span class="o">=</span>
+</span><span class='line'>                    <span class="n">optionalLong</span>
+</span><span class='line'>                    <span class="o">.</span><span class="na">orElseGet</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">calculateFibonnacci</span><span class="o">(</span><span class="mi">12L</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>get</code> y <code>orElse</code> extraen valores del Optional, y <code>orElse</code> proporciona un valor por defecto para
+el caso que el Optional almacene un null.</p>
+
+<p><strong>Tip 2</strong> : la llamada a <code>get</code> dará un NPE si el valor almacenado en el Optional es null. Extraer el
+valor a través de <code>orElse</code> es más seguro.</p>
+
+<h1>Transformación del valor</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="o">...</span>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Tax</span><span class="o">&gt;</span> <span class="n">stateTax</span> <span class="o">=</span> <span class="n">findStateTax</span><span class="o">(</span><span class="s">&quot;mo&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Integer</span> <span class="n">taxToApply</span> <span class="o">=</span>
+</span><span class='line'>                <span class="n">stateTax</span>
+</span><span class='line'>                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">tax</span> <span class="o">-&gt;</span> <span class="n">sum</span><span class="o">(</span><span class="n">tax</span> <span class="o">+</span> <span class="n">federalTax</span><span class="o">))</span>
+</span><span class='line'>                    <span class="o">.</span><span class="na">orElseGet</span><span class="o">(()-&gt;</span> <span class="n">calculateHistoricalTax</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">dBase</span> <span class="o">=</span>
+</span><span class='line'>                          <span class="n">findDiscount</span><span class="o">(</span><span class="s">&quot;wonderfulPhone&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">dState</span> <span class="o">=</span>
+</span><span class='line'>                          <span class="n">findDiscount</span><span class="o">(</span><span class="s">&quot;wonderfulPhone&quot;</span><span class="o">,</span> <span class="s">&quot;mo&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">fullDiscount</span> <span class="o">=</span>
+</span><span class='line'>                  <span class="n">dBase</span>
+</span><span class='line'>                  <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">dState</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Tip 3</strong> : si se necesita un valor por defecto y generarlo es costoso, entonces es mejor
+<code>orElseGet</code>, que se evaluará sólo si es necesario.</p>
+
+<h1>Ejecución condicional</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">price</span> <span class="o">=</span> <span class="n">findPrice</span><span class="o">(</span><span class="s">&quot;wonderfulPhone&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="o">(!</span><span class="n">price</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()){</span>
+</span><span class='line'>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Sorry, still cannot sell it&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">price</span><span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">notifyPriceToAllReservations</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">price</span>
+</span><span class='line'>      <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">9_000_000</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">rememberItIsVeryWonderful</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Tip 4</strong>: el menos <em>funcional</em> de todos estos métodos es <em>isPresent</em>, si se puede es mejor favorecer los otros</p>
+
+<p>Una última cosa sobre Optimal: Java 8 es la primera aproximación de Java a la programación funcional,
+y se ha centrado sobre todo en la incorporación de las lambdas al lenguaje, pero en el caso de
+Optiomal, además es un <a href="https://gist.github.com/ms-tg/7420496">Monad</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Enrique Aguilar Esnaola</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-20T15:46:38+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:46 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://19drops.com/blog/2014/09/20/no-nulls/" data-via="enqae" data-counturl="http://19drops.com/blog/2014/09/20/no-nulls/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/09/erase-una-vez/" title="Previous Post: érase una vez..">&laquo; érase una vez..</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/no-nulls/">No Nulls</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/09/erase-una-vez/">érase Una Vez..</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/09/es-mi-profesion/">Es Mi Profesión...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/03/16/atlassian-jira-confluence/">Atlassian JIRA + Confluence</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/03/02/zappos-y-su-decalogo/">Zappos Y Su Decálogo</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/enqae">@enqae</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'enqae',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Enrique Aguilar Esnaola -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = '19drops';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://19drops.com/blog/2014/09/20/no-nulls/';
+        var disqus_url = 'http://19drops.com/blog/2014/09/20/no-nulls/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

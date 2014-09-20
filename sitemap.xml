@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://19drops.com/blog/2014/09/20/no-nulls/</loc>
+    <lastmod>2014-09-20T15:46:38+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://19drops.com/blog/2011/10/09/erase-una-vez/</loc>
     <lastmod>2011-10-09T19:13:01+02:00</lastmod>
     <priority>0.8</priority>
@@ -65,21 +71,21 @@
   
   <url>
     <loc>http://19drops.com/blog/archives/</loc>
-    <lastmod>2014-09-07T11:18:06+02:00</lastmod>
+    <lastmod>2014-09-20T21:13:42+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://19drops.com/</loc>
-    <lastmod>2014-09-07T11:18:06+02:00</lastmod>
+    <lastmod>2014-09-20T21:13:42+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://19drops.com/blog-gear/</loc>
-    <lastmod>2014-09-07T11:18:06+02:00</lastmod>
+    <lastmod>2014-09-20T21:13:42+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

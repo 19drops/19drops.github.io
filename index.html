@@ -9,7 +9,8 @@
   <meta name="author" content="Enrique Aguilar Esnaola">
 
   
-  <meta name="description" content="&hellip; una Empresa que fabricaba ordenadores, y en un momento dado decidió ceder la fabricación de algunos circuitos a un Suministrador. Al de un &hellip;">
+  <meta name="description" content="Una de las nuevas features incorporadas en Java 8 es Optional, que representa la
+posibilidad de que un concepto pueda no tener valor, y su aplicación &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +73,122 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/20/no-nulls/">No Nulls</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-20T15:46:38+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:46 pm</span></time>
+        
+           | <a href="/blog/2014/09/20/no-nulls/#disqus_thread"
+             data-disqus-identifier="http://19drops.com/blog/2014/09/20/no-nulls/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
+posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
+al aplicarlo al valor retornado por un método/función.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">address</span> <span class="o">=</span>
+</span><span class='line'>        <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">address</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>       <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Aquí son dos las cuestiones a tener en cuenta:</p>
+
+<ol>
+<li> No queda modelizado que es posible que la información que se solicita no exista</li>
+<li> Si la información no existe, o se retorna un null, o se lanza una excepción</li>
+</ol>
+
+
+<p>Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.</p>
+
+<p><strong>Optional</strong> permite modelizar la posible ausencia de información y evita la &ldquo;excepcionalidad&rdquo; de la situación.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">){</span>
+</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'>  <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">)</span>
+</span><span class='line'>                 <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">address</span> <span class="o">-&gt;</span> <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">));</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
+programa es el mismo, no hay tratamientos especiales.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/09/20/no-nulls/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -516,47 +633,9 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/08/08/revisitando-the-mythical-man-month/">Revisitando the Mythical Man Month</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2009-08-08T21:06:31+02:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>9:06 pm</span></time>
-        
-           | <a href="/blog/2009/08/08/revisitando-the-mythical-man-month/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2009/08/08/revisitando-the-mythical-man-month/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>El otro día ordenando un montón de esos papeles que <em>te da pena tirar y no sabes muy bien por qué</em>, encontré unas notas sobre un libro que había leído hace ya algún tiempo. El libro era <a href="http://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The Mythical Man Month de Frederick Brooks</a>,  y sorprende lo actual que continua siendo a pesar de haber sido publicado hace ya más de 30 años, seguramente porque a pesar de todos los intentos de automatización y mecanización, el proceso de escribir programas…continua siendo eminentemente una actividad creativa.</p>
-
-<p>El libro es un “must-read” para cualquiera que se dedique al desarrollo de software y tiene aunténticas joyas:</p>
-
-<ul>
-<li><p>Pregunta: ¿Cómo puede un proyecto retrasarse un año?</p></li>
-<li><p>Respuesta: Día tras día</p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -567,6 +646,10 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/no-nulls/">No Nulls</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/10/09/erase-una-vez/">érase Una Vez..</a>
@@ -582,10 +665,6 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
     
       <li class="post">
         <a href="/blog/2010/03/02/zappos-y-su-decalogo/">Zappos Y Su Decálogo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2010/02/03/akismet-y-groovy/">Akismet Y Groovy</a>
       </li>
     
   </ul>
