@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Reactive | 19 drops]]></title>
   <link href="http://19drops.com/blog/categories/reactive/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-10-09T16:37:54+02:00</updated>
+  <updated>2014-10-09T16:39:09+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -89,6 +89,9 @@ def fLastMedalInLevel =
               "MoonConquest" else "NoMedalYet"
         }
 </code></pre>
+
+<!-- more -->
+
 
 <h3>flatMap y map</h3>
 

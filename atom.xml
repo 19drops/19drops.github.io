@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.com/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-10-09T16:37:54+02:00</updated>
+  <updated>2014-10-09T16:39:09+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -110,6 +110,11 @@ previamente el nivel último nivel del usuario.</p>
 </span><span class='line'>              <span class="s">&quot;MoonConquest&quot;</span> <span class="k">else</span> <span class="s">&quot;NoMedalYet&quot;</span>
 </span><span class='line'>        <span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
 
 
 <h3>flatMap y map</h3>
