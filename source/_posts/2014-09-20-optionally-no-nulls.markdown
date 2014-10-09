@@ -8,7 +8,7 @@ published: true
 ---
 
 One of the new features incorporated into Java 8 is ** Optional **, representing the
-possibility that a concept can not have value, and its clearest application is
+possibility that a concept may not have value, and its clearest application is
 when applied to the value returned by a method or function.
 
 ``` java
