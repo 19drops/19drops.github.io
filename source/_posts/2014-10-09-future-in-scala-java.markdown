@@ -4,6 +4,9 @@ title: "Futures in Scala and Java"
 date: 2014-10-09 11:22:14 +0200
 comments: true
 categories: [java,scala,reactive,microservices]
+
+keywords: "java, scala, futures, observable, functional, programming"
+description: "Brief comparison between Java 8 futures and Scala futures"
 ---
 
 Cuando se recibe una petición, por ejemplo una llamada a un API, es frecuente que para atenderla
