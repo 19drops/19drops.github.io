@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.com/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-10-09T16:39:09+02:00</updated>
+  <updated>2014-10-09T19:54:22+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -671,9 +671,9 @@ En RxJava quedaría de la forma:</p>
     <link href="http://19drops.com/blog/2014/09/20/optionally-no-nulls/"/>
     <updated>2014-09-20T15:46:38+02:00</updated>
     <id>http://19drops.com/blog/2014/09/20/optionally-no-nulls</id>
-    <content type="html"><![CDATA[<p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
-posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
-al aplicarlo al valor retornado por un método/función.</p>
+    <content type="html"><![CDATA[<p>One of the new features incorporated into Java 8 is <strong> Optional </strong>, representing the
+possibility that a concept can not have value, and its clearest application is
+when applied to the value returned by a method or function.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -710,17 +710,17 @@ al aplicarlo al valor retornado por un método/función.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Aquí son dos las cuestiones a tener en cuenta:</p>
+<p>Two things to take into account:</p>
 
 <ol>
-<li> No queda modelizado que es posible que la información que se solicita no exista</li>
-<li> Si la información no existe, o se retorna un null, o se lanza una excepción</li>
+<li> It is not modelized that the requested information might not exist</li>
+<li> If the information does not exist, returns null or throws an exception</li>
 </ol>
 
 
-<p>Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.</p>
+<p>The problem is with point 1, because if something is not modeled, it is obviously an exceptional case.</p>
 
-<p><strong>Optional</strong> permite modelizar la posible ausencia de información y evita la &ldquo;excepcionalidad&rdquo; de la situación.</p>
+<p><strong>Optional</strong> allows the modelization of the possible absence of information and avoids the &ldquo;exceptionality&rdquo; of the situation.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -749,18 +749,19 @@ al aplicarlo al valor retornado por un método/función.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
-programa es el mismo, no hay tratamientos especiales.</p>
+<p>Now it is clear that the information might not exist, and in any case (exists or not exists), the flow of the
+program is the same, no special treatment.</p>
 
 <!-- more -->
 
 
-<p>Este es el uso <em>canónico</em> de Optional en Java (valor de retorno en una función), que se espera que vaya siendo aplicado
-según se vayan migrando librerías, pero llevará tiempo y mientras continuará habiendo nulls.</p>
+<p>This is the <em>cannonical</em> use of Optimal in Java (returning value for a function),
+which is expected to be applied in libraries when they are migrated,
+but in the meantime we will keep dealing with nulls.</p>
 
-<p>El uso de Optional es simple:</p>
+<p>Using Optional is simple:</p>
 
-<h1>Creación de un Optional</h1>
+<h1>Optional Creation</h1>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -775,12 +776,12 @@ según se vayan migrando librerías, pero llevará tiempo y mientras continuará
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Una feature que ayuda con el tratamiento de nulls es que un Optional de null es un Optional.empty(),
-aunque debe ser creado con <code>ofNullable</code>.</p>
+<p>A feature that helps with treatment of nulls is that an Optional of null is Optional.empty(),
+although it must be created with <code>ofNullable</code>.</p>
 
-<p><strong>Tip 1</strong>: si no se está seguro del origen de la variable <code>ofNullable</code> es más seguro.</p>
+<p><strong>Tip 1</strong>: if you  are not sure about the origin of the variable, using <code>ofNullable</code> is more secure.</p>
 
-<h1>Extracción del valor</h1>
+<h1>Value Extraction</h1>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -811,13 +812,13 @@ aunque debe ser creado con <code>ofNullable</code>.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>get</code> y <code>orElse</code> extraen valores del Optional, y <code>orElse</code> proporciona un valor por defecto para
-el caso que el Optional almacene un null.</p>
+<p><code>get</code> y <code>orElse</code> extract the value from the Optimal, and <code>orElse</code>
+offers a default value in the case that the Optional keeps a null.</p>
 
-<p><strong>Tip 2</strong> : la llamada a <code>get</code> dará un NPE si el valor almacenado en el Optional es null. Extraer el
-valor a través de <code>orElse</code> es más seguro.</p>
+<p><strong>Tip 2</strong> : calling <code>get</code> will throw an NPE if the value inside the Optional is null. Extract the
+value using <code>orElse</code> is more secure.</p>
 
-<h1>Transformación del valor</h1>
+<h1>Value Transformation</h1>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -845,21 +846,21 @@ valor a través de <code>orElse</code> es más seguro.</p>
 </span><span class='line'>                    <span class="o">.</span><span class="na">orElseGet</span><span class="o">(()-&gt;</span> <span class="n">calculateHistoricalTax</span><span class="o">());</span>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">dBase</span> <span class="o">=</span>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">discountBase</span> <span class="o">=</span>
 </span><span class='line'>                          <span class="n">findDiscount</span><span class="o">(</span><span class="s">&quot;wonderfulPhone&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">dState</span> <span class="o">=</span>
+</span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">discountState</span> <span class="o">=</span>
 </span><span class='line'>                          <span class="n">findDiscount</span><span class="o">(</span><span class="s">&quot;wonderfulPhone&quot;</span><span class="o">,</span> <span class="s">&quot;mo&quot;</span><span class="o">);</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Discount</span><span class="o">&gt;</span> <span class="n">fullDiscount</span> <span class="o">=</span>
-</span><span class='line'>                  <span class="n">dBase</span>
-</span><span class='line'>                  <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">dState</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span><span class='line'>                  <span class="n">discountBase</span>
+</span><span class='line'>                  <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">discountState</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Tip 3</strong> : si se necesita un valor por defecto y generarlo es costoso, entonces es mejor
-<code>orElseGet</code>, que se evaluará sólo si es necesario.</p>
+<p><strong>Tip 3</strong> : when a default value is needed and its calculation is expensive, it is better using
+<code>orElseGet</code> that will be evaluated only if it is needed.</p>
 
-<h1>Ejecución condicional</h1>
+<h1>Conditional Execution</h1>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -886,11 +887,11 @@ valor a través de <code>orElse</code> es más seguro.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Tip 4</strong>: el menos <em>funcional</em> de todos estos métodos es <em>isPresent</em>, si se puede es mejor favorecer los otros</p>
+<p><strong>Tip 4</strong>: the less <em>funcional</em> of all these methods is <em>isPresent</em>, if possible is better used the others</p>
 
-<p>Una última cosa sobre Optimal: Java 8 es la primera aproximación de Java a la programación funcional,
-y se ha centrado sobre todo en la incorporación de las lambdas al lenguaje, pero en el caso de
-Optional, además es un <a href="https://gist.github.com/ms-tg/7420496">Monad</a>.</p>
+<p>Just one more thing about Optimal: Java 8 is the first approach of Java to the Functional Programming,
+and the main target has been the addition of lambdas to the language, but in the case of Optional,
+it is a <a href="https://gist.github.com/ms-tg/7420496">Monad</a>.</p>
 ]]></content>
   </entry>
   

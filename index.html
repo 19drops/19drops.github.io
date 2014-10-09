@@ -228,9 +228,9 @@ previamente el nivel último nivel del usuario.</p>
   </header>
 
 
-  <div class="entry-content"><p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
-posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
-al aplicarlo al valor retornado por un método/función.</p>
+  <div class="entry-content"><p>One of the new features incorporated into Java 8 is <strong> Optional </strong>, representing the
+possibility that a concept can not have value, and its clearest application is
+when applied to the value returned by a method or function.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -267,17 +267,17 @@ al aplicarlo al valor retornado por un método/función.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Aquí son dos las cuestiones a tener en cuenta:</p>
+<p>Two things to take into account:</p>
 
 <ol>
-<li> No queda modelizado que es posible que la información que se solicita no exista</li>
-<li> Si la información no existe, o se retorna un null, o se lanza una excepción</li>
+<li> It is not modelized that the requested information might not exist</li>
+<li> If the information does not exist, returns null or throws an exception</li>
 </ol>
 
 
-<p>Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.</p>
+<p>The problem is with point 1, because if something is not modeled, it is obviously an exceptional case.</p>
 
-<p><strong>Optional</strong> permite modelizar la posible ausencia de información y evita la &ldquo;excepcionalidad&rdquo; de la situación.</p>
+<p><strong>Optional</strong> allows the modelization of the possible absence of information and avoids the &ldquo;exceptionality&rdquo; of the situation.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -306,8 +306,8 @@ al aplicarlo al valor retornado por un método/función.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
-programa es el mismo, no hay tratamientos especiales.</p>
+<p>Now it is clear that the information might not exist, and in any case (exists or not exists), the flow of the
+program is the same, no special treatment.</p>
 
 </div>
   
