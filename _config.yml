@@ -6,7 +6,7 @@ url: http://19drops.com
 title: 19 drops
 subtitle: ancora imparo &larr; (michelangelo)
 author: Enrique Aguilar Esnaola
-simple_search: 
+simple_search:
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -98,4 +98,4 @@ disqus_show_comment_count: true
 google_analytics_tracking_id: UA-53796278-1
 
 # Facebook Like
-facebook_like: false
+facebook_like: true

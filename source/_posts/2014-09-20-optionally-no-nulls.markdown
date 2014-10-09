@@ -1,0 +1,154 @@
+---
+layout: post
+title: "Optionally no nulls"
+date: 2014-09-20 15:46:38 +0200
+comments: true
+categories: java
+published: true
+---
+
+Una de las nuevas *features* incorporadas en Java 8 es **Optional**, que representa la
+posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
+al aplicarlo al valor retornado por un método/función.
+
+``` java
+public class SubscribersRepo{
+  ...
+  public String findAddressByPhone(final String theNumber) {
+    ... some access to a data repository
+  }
+  ...
+}
+
+...
+    String address =
+        SubscribersRepo.findAddressByPhone("+930700555555");
+
+    if(address != null) {
+       sendSomeGift(address);
+    }
+...
+
+```
+Aquí son dos las cuestiones a tener en cuenta:
+
+  1. No queda modelizado que es posible que la información que se solicita no exista
+  2. Si la información no existe, o se retorna un null, o se lanza una excepción
+
+Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.
+
+**Optional** permite modelizar la posible ausencia de información y evita la "excepcionalidad" de la situación.
+``` java
+public class SubscribersRepo{
+  ...
+  public Optional<String> findAddressByPhone(final String theNumber){
+    ... some access to a data repository
+  }
+  ...
+}
+
+...
+  SubscribersRepo.findAddressByPhone("+930700555555")
+                 .ifPresent(address -> sendSomeGift(address));
+...
+```
+Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
+programa es el mismo, no hay tratamientos especiales.
+
+<!-- more -->
+
+Este es el uso *canónico* de Optional en Java (valor de retorno en una función), que se espera que vaya siendo aplicado
+según se vayan migrando librerías, pero llevará tiempo y mientras continuará habiendo nulls.
+
+El uso de Optional es simple:
+
+# Creación de un Optional
+
+
+``` java
+Optional<String> stringOptional =
+                 Optional.of("this string");
+
+Optional<String> stringOrEmptyOptional =
+                 Optional.ofNullable(theUnknownString);
+```
+Una feature que ayuda con el tratamiento de nulls es que un Optional de null es un Optional.empty(),
+aunque debe ser creado con ```ofNullable```.  
+
+**Tip 1**: si no se está seguro del origen de la variable ```ofNullable``` es más seguro.
+
+# Extracción del valor
+
+
+``` java
+  public void doSomething(final Optional<Long> optionalLong){
+
+    Long longOptional =
+                    optionalLong.get();
+
+    Long longOrElseOptional =
+                    optionalLong.orElse(0L);
+
+    Long longOrElseCalculatedOptional =
+                    optionalLong
+                    .orElseGet(() -> calculateFibonnacci(12L));
+
+  }
+```
+<code>get</code> y ```orElse``` extraen valores del Optional, y ```orElse``` proporciona un valor por defecto para
+el caso que el Optional almacene un null.
+
+**Tip 2** : la llamada a ```get``` dará un NPE si el valor almacenado en el Optional es null. Extraer el
+valor a través de ```orElse``` es más seguro.
+
+# Transformación del valor
+
+``` java
+
+  ...
+  Optional<Tax> stateTax = findStateTax("mo");
+
+  Integer taxToApply =  
+                stateTax
+                    .map(tax -> sum(tax + federalTax))
+                    .orElseGet(()-> calculateHistoricalTax());
+
+
+  Optional<Discount> dBase =
+                          findDiscount("wonderfulPhone");
+  Optional<Discount> dState =
+                          findDiscount("wonderfulPhone", "mo");
+
+  Optional<Discount> fullDiscount =
+                  dBase
+                  .flatMap(d -> Optional.of(d + dState.get());
+
+```
+
+**Tip 3** : si se necesita un valor por defecto y generarlo es costoso, entonces es mejor
+<code>orElseGet</code>, que se evaluará sólo si es necesario.
+
+# Ejecución condicional
+
+``` java
+
+  Optional<Integer> price = findPrice("wonderfulPhone");
+
+  if(!price.isPresent()){
+    System.out.println("Sorry, still cannot sell it");
+  }
+
+  price.ifPresent(p -> notifyPriceToAllReservations());
+
+  price
+      .filter(p -> p > 9_000_000)
+      .ifPresent(p -> rememberItIsVeryWonderful());
+```
+
+**Tip 4**: el menos _funcional_ de todos estos métodos es _isPresent_, si se puede es mejor favorecer los otros
+
+
+
+Una última cosa sobre Optimal: Java 8 es la primera aproximación de Java a la programación funcional,
+y se ha centrado sobre todo en la incorporación de las lambdas al lenguaje, pero en el caso de
+Optional, además es un [Monad](https://gist.github.com/ms-tg/7420496).
