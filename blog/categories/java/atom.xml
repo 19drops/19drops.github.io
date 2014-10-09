@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | 19 drops]]></title>
   <link href="http://19drops.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-10-09T19:57:13+02:00</updated>
+  <updated>2014-10-09T20:00:17+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -533,7 +533,7 @@ although it must be created with <code>ofNullable</code>.</p>
 </code></pre>
 
 <p><code>get</code> y <code>orElse</code> extract the value from the Optimal, and <code>orElse</code>
-offers a default value in the case that the Optional keeps a null.</p>
+offers a default value in the case that the Optional holds a null.</p>
 
 <p><strong>Tip 2</strong> : calling <code>get</code> will throw an NPE if the value inside the Optional is null. Extract the
 value using <code>orElse</code> is more secure.</p>
