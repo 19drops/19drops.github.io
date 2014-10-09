@@ -5,8 +5,9 @@ date: 2014-09-20 15:46:38 +0200
 comments: true
 categories: java
 published: true
+
 keywords: "java, optional, option, functional, programming"
-description: "Small description of the nue Optional in Java 8"
+description: "Small description of the new Optional in Java 8"
 ---
 
 One of the new features incorporated into Java 8 is ** Optional **, representing the
