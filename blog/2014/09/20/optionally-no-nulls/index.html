@@ -280,8 +280,8 @@ value using <code>orElse</code> is more secure.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Tip 3</strong> : when a default value is needed and its calculation is expensive, it is better using
-<code>orElseGet</code> that will be evaluated only if it is needed.</p>
+<p><strong>Tip 3</strong> : when a default value is needed and its calculation is expensive,
+<code>orElseGet</code> is better, it will be evaluated only if it is needed.</p>
 
 <h1>Conditional Execution</h1>
 
@@ -310,7 +310,7 @@ value using <code>orElse</code> is more secure.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Tip 4</strong>: the less <em>funcional</em> of all these methods is <em>isPresent</em>, if possible is better used the others</p>
+<p><strong>Tip 4</strong>: the less <em>funcional</em> of all these methods is <em>isPresent</em>, if possible go with the others.</p>
 
 <p>Just one more thing about Optimal: Java 8 is the first approach of Java to the Functional Programming,
 and the main target has been the addition of lambdas to the language, but in the case of Optional,
