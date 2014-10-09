@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | 19 drops]]></title>
   <link href="http://19drops.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-10-09T19:54:22+02:00</updated>
+  <updated>2014-10-09T19:57:13+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -442,7 +442,7 @@ return
     <updated>2014-09-20T15:46:38+02:00</updated>
     <id>http://19drops.com/blog/2014/09/20/optionally-no-nulls</id>
     <content type="html"><![CDATA[<p>One of the new features incorporated into Java 8 is <strong> Optional </strong>, representing the
-possibility that a concept can not have value, and its clearest application is
+possibility that a concept may not have value, and its clearest application is
 when applied to the value returned by a method or function.</p>
 
 <pre><code class="java">public class SubscribersRepo{
