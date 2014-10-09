@@ -7,9 +7,9 @@ categories: java
 published: true
 ---
 
-Una de las nuevas *features* incorporadas en Java 8 es **Optional**, que representa la
-posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
-al aplicarlo al valor retornado por un método/función.
+One of the new features incorporated into Java 8 is ** Optional **, representing the
+possibility that a concept can not have value, and its clearest application is
+when applied to the value returned by a method or function.
 
 ``` java
 public class SubscribersRepo{
@@ -30,14 +30,15 @@ public class SubscribersRepo{
 ...
 
 ```
-Aquí son dos las cuestiones a tener en cuenta:
+Two things to take into account:
 
-  1. No queda modelizado que es posible que la información que se solicita no exista
-  2. Si la información no existe, o se retorna un null, o se lanza una excepción
+  1. It is not modelized that the requested information might not exist
+  2. If the information does not exist, returns null or throws an exception
 
-Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.
+The problem is with point 1, because if something is not modeled, it is obviously an exceptional case.
 
-**Optional** permite modelizar la posible ausencia de información y evita la "excepcionalidad" de la situación.
+**Optional** allows the modelization of the possible absence of information and avoids the "exceptionality" of the situation.
+
 ``` java
 public class SubscribersRepo{
   ...
@@ -52,17 +53,18 @@ public class SubscribersRepo{
                  .ifPresent(address -> sendSomeGift(address));
 ...
 ```
-Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
-programa es el mismo, no hay tratamientos especiales.
+Now it is clear that the information might not exist, and in any case (exists or not exists), the flow of the
+program is the same, no special treatment.
 
 <!-- more -->
 
-Este es el uso *canónico* de Optional en Java (valor de retorno en una función), que se espera que vaya siendo aplicado
-según se vayan migrando librerías, pero llevará tiempo y mientras continuará habiendo nulls.
+This is the _cannonical_ use of Optimal in Java (returning value for a function),
+which is expected to be applied in libraries when they are migrated,
+but in the meantime we will keep dealing with nulls.
 
-El uso de Optional es simple:
+Using Optional is simple:
 
-# Creación de un Optional
+# Optional Creation
 
 
 ``` java
@@ -72,12 +74,12 @@ Optional<String> stringOptional =
 Optional<String> stringOrEmptyOptional =
                  Optional.ofNullable(theUnknownString);
 ```
-Una feature que ayuda con el tratamiento de nulls es que un Optional de null es un Optional.empty(),
-aunque debe ser creado con ```ofNullable```.  
+A feature that helps with treatment of nulls is that an Optional of null is Optional.empty(),
+although it must be created with ```ofNullable```.
 
-**Tip 1**: si no se está seguro del origen de la variable ```ofNullable``` es más seguro.
+**Tip 1**: if you  are not sure about the origin of the variable, using ```ofNullable``` is more secure.
 
-# Extracción del valor
+# Value Extraction
 
 
 ``` java
@@ -95,13 +97,13 @@ aunque debe ser creado con ```ofNullable```.
 
   }
 ```
-<code>get</code> y ```orElse``` extraen valores del Optional, y ```orElse``` proporciona un valor por defecto para
-el caso que el Optional almacene un null.
+<code>get</code> y ```orElse``` extract the value from the Optimal, and ```orElse```
+offers a default value in the case that the Optional keeps a null.
 
-**Tip 2** : la llamada a ```get``` dará un NPE si el valor almacenado en el Optional es null. Extraer el
-valor a través de ```orElse``` es más seguro.
+**Tip 2** : calling ```get``` will throw an NPE if the value inside the Optional is null. Extract the
+value using ```orElse``` is more secure.
 
-# Transformación del valor
+# Value Transformation
 
 ``` java
 
@@ -114,21 +116,21 @@ valor a través de ```orElse``` es más seguro.
                     .orElseGet(()-> calculateHistoricalTax());
 
 
-  Optional<Discount> dBase =
+  Optional<Discount> discountBase =
                           findDiscount("wonderfulPhone");
-  Optional<Discount> dState =
+  Optional<Discount> discountState =
                           findDiscount("wonderfulPhone", "mo");
 
   Optional<Discount> fullDiscount =
-                  dBase
-                  .flatMap(d -> Optional.of(d + dState.get());
+                  discountBase
+                  .flatMap(d -> Optional.of(d + discountState.get());
 
 ```
 
-**Tip 3** : si se necesita un valor por defecto y generarlo es costoso, entonces es mejor
-<code>orElseGet</code>, que se evaluará sólo si es necesario.
+**Tip 3** : when a default value is needed and its calculation is expensive, it is better using
+<code>orElseGet</code> that will be evaluated only if it is needed.
 
-# Ejecución condicional
+# Conditional Execution
 
 ``` java
 
@@ -145,10 +147,9 @@ valor a través de ```orElse``` es más seguro.
       .ifPresent(p -> rememberItIsVeryWonderful());
 ```
 
-**Tip 4**: el menos _funcional_ de todos estos métodos es _isPresent_, si se puede es mejor favorecer los otros
+**Tip 4**: the less _funcional_ of all these methods is _isPresent_, if possible is better used the others
 
 
-
-Una última cosa sobre Optimal: Java 8 es la primera aproximación de Java a la programación funcional,
-y se ha centrado sobre todo en la incorporación de las lambdas al lenguaje, pero en el caso de
-Optional, además es un [Monad](https://gist.github.com/ms-tg/7420496).
+Just one more thing about Optimal: Java 8 is the first approach of Java to the Functional Programming,
+and the main target has been the addition of lambdas to the language, but in the case of Optional,
+it is a [Monad](https://gist.github.com/ms-tg/7420496).
