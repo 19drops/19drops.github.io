@@ -98,7 +98,7 @@ although it must be created with ```ofNullable```.
   }
 ```
 <code>get</code> y ```orElse``` extract the value from the Optimal, and ```orElse```
-offers a default value in the case that the Optional keeps a null.
+offers a default value in the case that the Optional holds a null.
 
 **Tip 2** : calling ```get``` will throw an NPE if the value inside the Optional is null. Extract the
 value using ```orElse``` is more secure.
