@@ -127,8 +127,8 @@ value using ```orElse``` is more secure.
 
 ```
 
-**Tip 3** : when a default value is needed and its calculation is expensive, it is better using
-<code>orElseGet</code> that will be evaluated only if it is needed.
+**Tip 3** : when a default value is needed and its calculation is expensive,
+<code>orElseGet</code> is better, it will be evaluated only if it is needed.
 
 # Conditional Execution
 
@@ -147,7 +147,7 @@ value using ```orElse``` is more secure.
       .ifPresent(p -> rememberItIsVeryWonderful());
 ```
 
-**Tip 4**: the less _funcional_ of all these methods is _isPresent_, if possible is better used the others
+**Tip 4**: the less _funcional_ of all these methods is _isPresent_, if possible go with the others.
 
 
 Just one more thing about Optimal: Java 8 is the first approach of Java to the Functional Programming,
