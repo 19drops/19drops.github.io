@@ -4,7 +4,7 @@
   <title><![CDATA[19 drops]]></title>
   <link href="http://19drops.com/atom.xml" rel="self"/>
   <link href="http://19drops.com/"/>
-  <updated>2014-09-20T21:13:42+02:00</updated>
+  <updated>2014-10-09T16:37:54+02:00</updated>
   <id>http://19drops.com/</id>
   <author>
     <name><![CDATA[Enrique Aguilar Esnaola]]></name>
@@ -14,10 +14,658 @@
 
   
   <entry>
-    <title type="html"><![CDATA[No Nulls]]></title>
-    <link href="http://19drops.com/blog/2014/09/20/no-nulls/"/>
+    <title type="html"><![CDATA[Futures in Scala and Java]]></title>
+    <link href="http://19drops.com/blog/2014/10/09/future-in-scala-java/"/>
+    <updated>2014-10-09T11:22:14+02:00</updated>
+    <id>http://19drops.com/blog/2014/10/09/future-in-scala-java</id>
+    <content type="html"><![CDATA[<p>Cuando se recibe una petición, por ejemplo una llamada a un API, es frecuente que para atenderla
+haya que que recabar información de múltiples orígenes. Estos orígenes pueden ser directamente un
+repositorio de información (un acceso JDBC), o bien, un servicio interno independiente
+que gestiona una determinada funcionalidad (microservice).
+Así mismo, algunas de estas informaciones serán independientes
+unas de otras, pero habrá casos en las que existan dependencias entre ellas.
+Por otro lado, sería muy
+interesante que no se bloquearan innecesariamente recursos del sistema (reactive), que son siempre muy escasos.</p>
+
+<p>Por lo tanto, el sistema más eficiente sería aquel:</p>
+
+<ul>
+<li>que permitiera paralelizar todas las operaciones que fuera posible</li>
+<li>que permitiera combinar los resultados de operaciones intermedias para obtener el resultado final</li>
+<li>que evitara bloquear ningún recurso de manera innecesaria</li>
+</ul>
+
+
+<p>En Scala esto es algo inherente al ADN del lenguaje, los <em>elementos básicos</em> del lenguaje proporcionan lo
+necesario, pero y en Java?</p>
+
+<p>Supongamos un sistema de Gamificación en el que el API que devuelve el perfil del jugador proporciona la
+siguiente información:</p>
+
+<ul>
+<li>Datos básicos de perfil (nickname, nivel)</li>
+<li>Posición en los rankings</li>
+<li>Última medalla conseguida en su nivel actual</li>
+</ul>
+
+
+<p>Por ejemplo, en este caso: los datos básicos del perfil y la posición en el ranking son operaciones independientes que podrían lanzarse
+sobre los correspondientes servicios, y la identificación de la última medalla conseguida depende de conocer
+previamente el nivel último nivel del usuario.</p>
+
+<h2> Scala Flavour</h2>
+
+<p>Scala ofrece las <strong>Futures</strong> como mecanismo para la parelización de acciones, y las operaciones
+<strong>flatMap</strong> y <strong>map</strong> para la combinación de las mismas dentro del propio lenguaje.</p>
+
+<p>Las siguientes <strong>Futures</strong> modelizan las operaciones a realizar:</p>
+
+<ul>
+<li>Recuperación de la posición en el Ranking [fBasicProfile]</li>
+<li>Recuperación del perfil básico [fRanking]</li>
+<li>Recuperación de la última medalla del nivel actual [fLastMedalInLevel], que depende del valor devuelto por [fBasicProfile]</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Futures for Scala</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/scala/TheFutures.scala'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">fBasicProfile</span> <span class="k">=</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">Future</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">doAction</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Select BasicProfile ($user)&quot;</span><span class="o">)</span>
+</span><span class='line'>          <span class="s">&quot;basicProfile:MoonWalker&quot;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="n">fRanking</span> <span class="k">=</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">Future</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">doAction</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Select Ranking Position ($user)&quot;</span><span class="o">)</span>
+</span><span class='line'>          <span class="s">&quot;125&quot;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="n">fLastMedalInLevel</span> <span class="k">=</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">basicProfile</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">Future</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">doAction</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Select LastMedalInLevel ($basicProfile)&quot;</span><span class="o">)</span>
+</span><span class='line'>          <span class="k">if</span> <span class="o">(</span><span class="n">basicProfile</span><span class="o">.</span><span class="n">endsWith</span><span class="o">(</span><span class="s">&quot;MoonWalker&quot;</span><span class="o">))</span>
+</span><span class='line'>              <span class="s">&quot;MoonConquest&quot;</span> <span class="k">else</span> <span class="s">&quot;NoMedalYet&quot;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>flatMap y map</h3>
+
+<p>El modo más básico de combinar estas <em>Futures</em> con las operaciones flatMap/map es el siguiente:</p>
+
+<figure class='code'><figcaption><span>flatMap/map Combination</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/scala/Example_01_FuturesBasicFlatMap.scala'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">findFullProfile</span><span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">fRankingForUser</span> <span class="k">=</span> <span class="n">fRanking</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">fbasicProfileForUser</span> <span class="k">=</span> <span class="n">fBasicProfile</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">fRankingForUser</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span>
+</span><span class='line'>      <span class="n">basicProfile</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="n">fbasicProfileForUser</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span>
+</span><span class='line'>            <span class="n">ranking</span> <span class="k">=&gt;</span>
+</span><span class='line'>              <span class="n">fLastMedalInLevel</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">).</span><span class="n">map</span><span class="o">(</span>
+</span><span class='line'>                    <span class="n">lastMedal</span> <span class="k">=&gt;</span>
+</span><span class='line'>                       <span class="n">s</span><span class="s">&quot;$basicProfile;$ranking;$lastMedal&quot;</span>
+</span><span class='line'>                                                 <span class="o">)</span>
+</span><span class='line'>                                     <span class="o">)</span>
+</span><span class='line'>                          <span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Simple, aunque no <em>escalable</em>. Si hubiera un cuarto servicio al que acceder este mecanismo se volvería inmanejable.</p>
+
+<h3>for comprenhensions</h3>
+
+<p>Para solucionar esto Scala ofrece una sintaxis alternativa, las <strong>for comprenhension</strong>, que dejan al
+compilador la generación de esta estructura básica. Con una <em>for comprenhension</em> lo anterior quedaría como:</p>
+
+<figure class='code'><figcaption><span>for comprenhension Combination</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/scala/Example_00_FuturesForComprenhension.scala'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">findFullProfile</span><span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">fRankingForUser</span> <span class="k">=</span> <span class="n">fRanking</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">fbasicProfileForUser</span> <span class="k">=</span> <span class="n">fBasicProfile</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>       <span class="n">ranking</span> <span class="k">&lt;-</span> <span class="n">fRankingForUser</span>
+</span><span class='line'>       <span class="n">basicProfile</span> <span class="k">&lt;-</span> <span class="n">fbasicProfileForUser</span>
+</span><span class='line'>       <span class="n">lastMedal</span> <span class="k">&lt;-</span> <span class="n">fLastMedalInLevel</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="o">}</span> <span class="k">yield</span> <span class="n">s</span><span class="s">&quot;$basicProfile;$ranking;$lastMedal&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Mucho más simple, y sobre todo <em>escalable</em>. La inclusión de una petición a un nuevo servicio no altera
+significativamente la estructura del programa.</p>
+
+<h3> launching y resultados</h3>
+
+<p>El proceso de lanzamiento de estas peticiones tendría la forma:</p>
+
+<figure class='code'><figcaption><span>launching process</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/scala/Example_00_Futures.scala'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">print</span><span class="o">(</span><span class="s">&quot;StartingMainProcessing Action&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">findFullProfile</span><span class="o">(</span><span class="s">&quot;JaneNone&quot;</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">map</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">fp</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">print</span><span class="o">(</span><span class="s">&quot;EndingFullProfileProcessing Action&quot;</span><span class="o">)</span>
+</span><span class='line'>                <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;FullProfile: $fp&quot;</span><span class="o">)</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>           <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">print</span><span class="o">(</span><span class="s">&quot;EndingMainProcessing Action&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Just waiting all work to be done</span>
+</span><span class='line'><span class="n">waitFor</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si miramos la ejecución de estos procesos obtendríamos algo similar a lo siguiente:</p>
+
+<figure class='code'><figcaption><span>request API execution</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">(1- launching)</span>
+</span><span class='line'><span class="go">[TH]. 39 ... StartingMainProcessing Action  </span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone)</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone)</span>
+</span><span class='line'><span class="go">[TH]. 39 ... EndingMainProcessing Action</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(2- parallel execution)</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone) - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone) - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone) - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone) - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone) - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone) - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Ranking Position (JaneNone) - Step[5]</span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone) - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone) - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 40 ... Select BasicProfile (JaneNone) - Step[5]</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(3- combination)</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker)</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker) - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker) - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker) - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker) - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 32 ... Select Last...Level (basicP...Walker) - Step[5]</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(4- results available)</span>
+</span><span class='line'><span class="go">[TH]. 32 ... EndingFullProfileProcessing Action</span>
+</span><span class='line'><span class="go">FullProfile: basicProfile:MoonWalker;125;MoonConquest</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>(1 - launching)</p>
+
+<ul>
+<li>el proceso de la petición se inicia en el Thread-39</li>
+<li>se lanzan las futures [fBasicProfileForUser] que comienza a ejecutarse en el Thread-40 y
+[fRankingForUser] que comienza a ejecutarse en el Thread-32. Ambas de forma paralela.</li>
+<li>el proceso de lanzamiento concluye sin efectuar ningún bloqueo</li>
+</ul>
+</li>
+<li><p>(2 - parallel execution)</p>
+
+<ul>
+<li>ambas futures continuan ejecutándose hasta que hay un resultado disponible</li>
+</ul>
+</li>
+<li><p>(3 - combination)</p>
+
+<ul>
+<li>el resultado de [fBasicProfileForUser] está disponible y puede utilizarse para solicitar el
+cálculo de [fLastMedalInLevel]</li>
+</ul>
+</li>
+<li><p>(4 - results available)</p>
+
+<ul>
+<li>los resultados de las tres están disponibles y es posible retornar la respuesta</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Por lo tanto, se solicitan las informaciones de forma paralela, no hay bloqueos y se pueden combinar
+los resultados intermedios.</p>
+
+<p>La operación <code>waitFor</code> es simplemente a efectos del ejemplo. En un caso real estaríamos utilizando un
+framework adecuado, como por ejemplo Play.</p>
+
+<h3>async block</h3>
+
+<p>Uno de los aspectos que más persigue Scala es en ofrecer mecanismos que permitan simplificar la paralelización
+de operaciones, y en este sentido, en la próxima versión se incluirá una simplicación nueva: los bloques <a href="http://docs.scala-lang.org/sips/pending/async.html"><code>async</code></a>.</p>
+
+<p>Utilizando bloques <code>async</code> quedaría de la forma:</p>
+
+<figure class='code'><figcaption><span>async Block</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/scala/Example_02_FuturesAsync.scala'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">fRankingForUser</span> <span class="k">=</span> <span class="n">fRanking</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'><span class="k">val</span> <span class="n">fbasicProfileForUser</span> <span class="k">=</span> <span class="n">fBasicProfile</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">async</span> <span class="o">{</span>
+</span><span class='line'>   <span class="k">val</span> <span class="n">ranking</span> <span class="k">=</span> <span class="n">await</span><span class="o">(</span><span class="n">fRankingForUser</span><span class="o">)</span>
+</span><span class='line'>   <span class="k">val</span> <span class="n">basicProfile</span> <span class="k">=</span> <span class="n">await</span><span class="o">(</span><span class="n">fbasicProfileForUser</span><span class="o">)</span>
+</span><span class='line'>   <span class="k">val</span> <span class="n">lastMedal</span> <span class="k">=</span> <span class="n">await</span><span class="o">(</span><span class="n">fLastMedalInLevel</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">))</span>
+</span><span class='line'>   <span class="n">s</span><span class="s">&quot;$basicProfile;$ranking;$lastMedal&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>que es una construcción más <em>natural</em> que la <em>for comprenhension</em> para los procedentes de lenguajes imperativos.</p>
+
+<h2>Java Flavour</h2>
+
+<p>En Java las cosas no son exactamente iguales. Hasta Java 7 no existía de forma nativa nada similar a lo ofrecido
+por Scala. Existían las <em>Futures</em> pero la extración del resultado siempre implicaba una operación bloqueante: <code>get</code>.</p>
+
+<figure class='code'><figcaption><span>futures Java 7</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/java/Example_00_FutureBlockingGet.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// BLOCKING Operation</span>
+</span><span class='line'><span class="n">String</span> <span class="n">ranking</span> <span class="o">=</span> <span class="n">fRanking</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// BLOCKING Operation</span>
+</span><span class='line'><span class="n">String</span> <span class="n">basicProfile</span> <span class="o">=</span> <span class="n">fBasicProfile</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span><span class='line'><span class="n">Future</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">fLastMedalInLevel</span> <span class="o">=</span> <span class="n">lastMedalInLevel</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// BLOCKING Operation</span>
+</span><span class='line'><span class="n">String</span> <span class="n">lastMedal</span> <span class="o">=</span> <span class="n">fLastMedalInLevel</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Java 8, ofrece un nuevo tipo de <em>Future</em>: <strong>CompletableFuture</strong>.
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html"><em>CompletableFuture</em></a> es
+un <em>Monad</em> (al igual que <a href="http://19drops.com/blog/2014/09/20/optionally-no-nulls/"><em>Optional</em></a> y <em>Stream</em>), y ofrece las mismas operaciones básicas que ofrecía Scala:</p>
+
+<ul>
+<li>flatMap -> thenCompose/thenComposeAsync</li>
+<li>map -> thenApply/thenApplyAsync</li>
+</ul>
+
+
+<p><em>CompletableFuture</em> tiene un comportamiento no bloqueante y ofrece alrededor de 50 métodos diferentes.</p>
+
+<p>En el caso de Java, las <em>Futures</em> que utilizaríamos serían las siguientes:</p>
+
+<figure class='code'><figcaption><span>Futures for Java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">fRanking</span> <span class="o">=</span>
+</span><span class='line'>  <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Misc</span><span class="o">.</span><span class="na">doAction</span><span class="o">(</span><span class="s">&quot;Select Ranking &quot;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s">&quot;125&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">fBasicProfile</span> <span class="o">=</span>
+</span><span class='line'>  <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Misc</span><span class="o">.</span><span class="na">doAction</span><span class="o">(</span><span class="s">&quot;Select BasicProfile &quot;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s">&quot;BasicProfile:MoonWalker&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Function</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">lastMedalInLevel</span> <span class="o">=</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">String</span> <span class="n">basicProfile</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>            <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">Misc</span><span class="o">.</span><span class="na">doAction</span><span class="o">(</span><span class="s">&quot;Select LastMedalInLevel&quot;</span><span class="o">);</span>
+</span><span class='line'>                <span class="k">return</span>
+</span><span class='line'>                    <span class="n">basicProfile</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&quot;MoonWalker&quot;</span><span class="o">)</span>
+</span><span class='line'>                    <span class="o">?</span> <span class="s">&quot;MoonConquest&quot;</span>
+</span><span class='line'>                    <span class="o">:</span> <span class="s">&quot;NoMedalYet&quot;</span><span class="o">;</span>
+</span><span class='line'>            <span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>y utilizando las operaciones <code>thenComposeAsync</code> y <code>thenApplyAsync</code> obtendríamos:</p>
+
+<figure class='code'><figcaption><span>flatMap/map Combination</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/java/Example_02_FutureComposableFlatMap.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fRanking</span>
+</span><span class='line'>  <span class="o">.</span><span class="na">thenComposeAsync</span><span class="o">(</span>
+</span><span class='line'>      <span class="n">ranking</span> <span class="o">-&gt;</span> <span class="n">fBasicProfile</span>
+</span><span class='line'>          <span class="o">.</span><span class="na">thenComposeAsync</span><span class="o">(</span>
+</span><span class='line'>              <span class="n">basicProfile</span> <span class="o">-&gt;</span>
+</span><span class='line'>                    <span class="n">lastMedalInLevel</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">)</span>
+</span><span class='line'>                        <span class="o">.</span><span class="na">thenApplyAsync</span><span class="o">(</span>
+</span><span class='line'>                            <span class="n">lm</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;%s;%s;%s&quot;</span><span class="o">,</span> <span class="n">basicProfile</span><span class="o">,</span> <span class="n">ranking</span><span class="o">,</span> <span class="n">lm</span><span class="o">)</span>
+</span><span class='line'>                                       <span class="o">)</span>
+</span><span class='line'>                          <span class="o">)</span>
+</span><span class='line'>                  <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>que es extremadamente parecido a lo que obteníamos en el caso de Scala. Al igual que ocurría en Scala,
+esta solución es poco <em>escalable</em>, ya que si hubiera que introducir una nueva <em>Future</em>, el código
+comenzaría a estar excesivamente <em>anidado</em>.</p>
+
+<p>Scala solucionaba esto con las <em>for comprenhension</em> y los bloques <em>async</em>, y en el caso de Java existe
+la operación <code>allOf</code>, que toma una lista de <em>Futures</em> y paraleliza su ejecución. Utilizando <code>allOf</code>
+ obtendríamos:</p>
+
+<figure class='code'><figcaption><span>allOf Combination</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/java/Example_03_FutureComposableFlatMap.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">CompletableFuture</span><span class="o">.</span><span class="na">allOf</span><span class="o">(</span><span class="n">fBasicProfile</span><span class="o">,</span> <span class="n">fRanking</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">.</span><span class="na">thenComposeAsync</span><span class="o">(</span>
+</span><span class='line'>     <span class="n">na</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span><span class='line'>        <span class="c1">// All futures ARE completed at this time</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">basicProfile</span> <span class="o">=</span> <span class="n">fBasicProfile</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">ranking</span> <span class="o">=</span> <span class="n">fRanking</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">lastMedalInLevel</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">basicProfile</span><span class="o">)</span>
+</span><span class='line'>                  <span class="o">.</span><span class="na">thenApplyAsync</span><span class="o">(</span>
+</span><span class='line'>                      <span class="n">lm</span> <span class="o">-&gt;</span>
+</span><span class='line'>                          <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;%s;%s;%s&quot;</span><span class="o">,</span> <span class="n">basicProfile</span><span class="o">,</span> <span class="n">ranking</span><span class="o">,</span> <span class="n">lm</span><span class="o">)</span>
+</span><span class='line'>                                 <span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>                  <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Más manejable, aunque algo menos que en el caso de Scala.</p>
+
+<p>En ambos casos el proceso de lanzamiento de las operaciones sería de la forma:</p>
+
+<figure class='code'><figcaption><span>launching process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Misc</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;StartingMainProcessing Action&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">findFullProfile</span><span class="o">(</span><span class="s">&quot;JaneNone&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">thenAcceptAsync</span><span class="o">(</span><span class="n">fp</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Misc</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;EndingFullProfileProcessing Action&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">Misc</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;FullProfile: %s&quot;</span><span class="o">,</span> <span class="n">fp</span><span class="o">));</span>
+</span><span class='line'>        <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Misc</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;End of Main Processing&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Just waiting all work to be done</span>
+</span><span class='line'><span class="n">Misc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Muy similar al caso de Scala (<code>thenAcceptAsync</code> es simplemente un método de terminación, que en Java
+es necesario para extraer los valores).</p>
+
+<p>La ejecución de estos procesos ofrece un patrón muy similar al anteriormente visto:</p>
+
+<figure class='code'><figcaption><span>request API execution</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">(1- launching)</span>
+</span><span class='line'><span class="go">[TH]. 336 ... StartingMainProcessing Action</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 336 ... End of Main Processing</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(2- parallel execution)</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select Ranking JaneNone - Step[5]</span>
+</span><span class='line'><span class="go">[TH]. 337 ... Select BasicProfile JaneNone - Step[5]</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(3- Combination)</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel - Step[1]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel - Step[2]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel - Step[3]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel - Step[4]</span>
+</span><span class='line'><span class="go">[TH]. 329 ... Select LastMedalInLevel - Step[5]</span>
+</span><span class='line'>
+</span><span class='line'><span class="go">(4- results available)</span>
+</span><span class='line'><span class="go">[TH]. 337 ... EndingFullProfileProcessing Action</span>
+</span><span class='line'><span class="go">[TH]. 337 ... FullProfile: BasicProfile:MoonWalker;125;MoonConquest</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>resumiendo</h2>
+
+<p><em>CompletableFuture</em> es uno de los elementos introducidos en Java 8 que actualizan la plataforma y la acercan
+a las necesidades actuales de las aplicaciones. No es tan potente y flexible como son las soluciones que
+ofrece Scala, pero es una gran mejora.</p>
+
+<h2> Nota: Java 7 y 6</h2>
+
+<p>Si bien en versiones anteriores a Java 8 no existía en el lenguaje ningún elemento que permitiera realizar este
+tipo de operaciones, si hay librerías como por ejemplo <a href="https://github.com/ReactiveX/RxJava">RxJava</a> que permiten realizar un aproximación similar.
+En RxJava quedaría de la forma:</p>
+
+<figure class='code'><figcaption><span>using RxJava</span><a href='https://github.com/enqae/futuresComposition/blob/master/src/main/java/Example_01_RxJavaNonBlockingComposition.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">oBasicProfile</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">fBasicProfile</span><span class="o">);</span>
+</span><span class='line'><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">oRanking</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">fRanking</span><span class="o">);</span>
+</span><span class='line'><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">oLastMedal</span> <span class="o">=</span>
+</span><span class='line'>      <span class="n">oBasicProfile</span>
+</span><span class='line'>           <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span>
+</span><span class='line'>                <span class="n">bp</span> <span class="o">-&gt;</span>
+</span><span class='line'>                   <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">lastMedalInLevel</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">bp</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span>
+</span><span class='line'>    <span class="n">Observable</span>
+</span><span class='line'>      <span class="o">.</span><span class="na">zip</span><span class="o">(</span>
+</span><span class='line'>        <span class="n">oBasicProfile</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">oRanking</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">oLastMedal</span><span class="o">,</span>
+</span><span class='line'>        <span class="o">(</span><span class="n">basicProfile</span><span class="o">,</span> <span class="n">ranking</span><span class="o">,</span> <span class="n">lastMedal</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">-&gt;</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;%s;%s;%s&quot;</span><span class="o">,</span> <span class="n">basicProfile</span><span class="o">,</span> <span class="n">ranking</span><span class="o">,</span> <span class="n">lastMedal</span><span class="o">))</span>
+</span><span class='line'>      <span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">computation</span><span class="o">());</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>También con las operaciones paralelizadas, combinadas y no bloqueantes.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Optionally No Nulls]]></title>
+    <link href="http://19drops.com/blog/2014/09/20/optionally-no-nulls/"/>
     <updated>2014-09-20T15:46:38+02:00</updated>
-    <id>http://19drops.com/blog/2014/09/20/no-nulls</id>
+    <id>http://19drops.com/blog/2014/09/20/optionally-no-nulls</id>
     <content type="html"><![CDATA[<p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
 posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
 al aplicarlo al valor retornado por un método/función.</p>
@@ -237,7 +885,7 @@ valor a través de <code>orElse</code> es más seguro.</p>
 
 <p>Una última cosa sobre Optimal: Java 8 es la primera aproximación de Java a la programación funcional,
 y se ha centrado sobre todo en la incorporación de las lambdas al lenguaje, pero en el caso de
-Optiomal, además es un <a href="https://gist.github.com/ms-tg/7420496">Monad</a>.</p>
+Optional, además es un <a href="https://gist.github.com/ms-tg/7420496">Monad</a>.</p>
 ]]></content>
   </entry>
   

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>19 drops</title>
+  <title>Futures in Scala and Java - 19 drops</title>
   <meta name="author" content="Enrique Aguilar Esnaola">
 
   
@@ -19,7 +19,7 @@ haya que que recabar información de múltiples &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://19drops.com">
+  <link rel="canonical" href="http://19drops.com/blog/2014/10/09/future-in-scala-java">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="19 drops" type="application/atom+xml">
@@ -70,15 +70,12 @@ haya que que recabar información de múltiples &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/10/09/future-in-scala-java/">Futures in Scala and Java</a></h1>
+      <h1 class="entry-title">Futures in Scala and Java</h1>
     
     
       <p class="meta">
@@ -89,15 +86,15 @@ haya que que recabar información de múltiples &hellip;">
 
 <time class='entry-date' datetime='2014-10-09T11:22:14+02:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:22 am</span></time>
         
-           | <a href="/blog/2014/10/09/future-in-scala-java/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2014/10/09/future-in-scala-java/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://19drops.com">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cuando se recibe una petición, por ejemplo una llamada a un API, es frecuente que para atenderla
+<div class="entry-content"><p>Cuando se recibe una petición, por ejemplo una llamada a un API, es frecuente que para atenderla
 haya que que recabar información de múltiples orígenes. Estos orígenes pueden ser directamente un
 repositorio de información (un acceso JDBC), o bien, un servicio interno independiente
 que gestiona una determinada funcionalidad (microservice).
@@ -738,525 +735,60 @@ En RxJava quedaría de la forma:</p>
 
 <p>También con las operaciones paralelizadas, combinadas y no bloqueantes.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/20/optionally-no-nulls/">Optionally No Nulls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-09-20T15:46:38+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:46 pm</span></time>
-        
-           | <a href="/blog/2014/09/20/optionally-no-nulls/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2014/09/20/optionally-no-nulls/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Una de las nuevas <em>features</em> incorporadas en Java 8 es <strong>Optional</strong>, que representa la
-posibilidad de que un concepto pueda no tener valor, y su aplicación más clara está
-al aplicarlo al valor retornado por un método/función.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">address</span> <span class="o">=</span>
-</span><span class='line'>        <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">address</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>       <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Aquí son dos las cuestiones a tener en cuenta:</p>
-
-<ol>
-<li> No queda modelizado que es posible que la información que se solicita no exista</li>
-<li> Si la información no existe, o se retorna un null, o se lanza una excepción</li>
-</ol>
-
-
-<p>Realmente el problema es el punto 1, ya que si algo no está modelizado, lógicamente es un caso excepcional.</p>
-
-<p><strong>Optional</strong> permite modelizar la posible ausencia de información y evita la &ldquo;excepcionalidad&rdquo; de la situación.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubscribersRepo</span><span class="o">{</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findAddressByPhone</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">theNumber</span><span class="o">){</span>
-</span><span class='line'>    <span class="o">...</span> <span class="n">some</span> <span class="n">access</span> <span class="n">to</span> <span class="n">a</span> <span class="n">data</span> <span class="n">repository</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'>  <span class="n">SubscribersRepo</span><span class="o">.</span><span class="na">findAddressByPhone</span><span class="o">(</span><span class="s">&quot;+930700555555&quot;</span><span class="o">)</span>
-</span><span class='line'>                 <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">address</span> <span class="o">-&gt;</span> <span class="n">sendSomeGift</span><span class="o">(</span><span class="n">address</span><span class="o">));</span>
-</span><span class='line'><span class="o">...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ahora queda claro que la información puede no existir, y en cualquier caso (exista o no), el flujo del
-programa es el mismo, no hay tratamientos especiales.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/09/20/optionally-no-nulls/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="byline author vcard">Posted by <span class="fn">Enrique Aguilar Esnaola</span></span>
 
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/09/erase-una-vez/">érase Una Vez..</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
 
-<time class='entry-date' datetime='2011-10-09T19:13:01+02:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>7:13 pm</span></time>
-        
-           | <a href="/blog/2011/10/09/erase-una-vez/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2011/10/09/erase-una-vez/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>  &hellip; una Empresa que fabricaba ordenadores, y en un momento dado decidió ceder
-  la fabricación de algunos circuitos a un Suministrador.
-  Al de un tiempo el Suministrador le propuso:</p>
-
-<p>  – Qué te parece si fabrico también la placa madre y lo hago un 20% más barato?
-  De todos modos no es el núcleo de tu negocio.</p>
-
-<p>  A la Empresa le pareció fantástico, iban a ganar más y con menos esfuerzo. Al de
-  un cierto tiempo el Suministrador volvió con nuevas propuestas para hacerse cargo
-  de la fabricación del resto de componentes, del ensamblado, del diseño &hellip; de todo.</p>
-
-<p>  La Empresa cada vez estaba más contenta, cada vez tenía que dedicar menos esfuerzo
-  a construir su producto, y sin embargo cada vez ganaba más.</p>
-
-<p>  Al final el Suministrador sabía hacer ordenadores completos, así que ya no acudió
-  más a la Empresa &hellip; ahora comenzaba a hablar directamente con el Distribuidor &hellip;</p>
-
-<p>En este artículo, <a href="http://www.forbes.com/sites/stevedenning/2011/08/17/why-amazon-cant-make-a-kindle-in-the-usa">Why amazon can’t make a kindle in the USA?</a>, explican la situación del outsourcing en Estados Unidos.</p>
-
-<p>El caso del “cuento” se refiere a una industria llamenosle “física”, pero en el caso del software sería muy similar. Si no estás en los elementos básicos de lo que haces, te desconectas del proceso base y pierdes la capacidad (el know-how) para aumentar el valor de lo que construyes.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time class='entry-date' datetime='2014-10-09T11:22:14+02:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:22 am</span></time>
       
-  <header>
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/microservices/'>microservices</a>, <a class='category' href='/blog/categories/reactive/'>reactive</a>, <a class='category' href='/blog/categories/scala/'>scala</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2011/09/09/es-mi-profesion/">Es Mi Profesión&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-09T10:07:11+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>10:07 am</span></time>
-        
-           | <a href="/blog/2011/09/09/es-mi-profesion/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2011/09/09/es-mi-profesion/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>En la tercera temporada de <a href="http://www.amctv.com/shows/mad-men">Mad Men</a> Don Draper conoce casualmente a Conrad Hilton, el fundador de la cadena de hoteles, y se hacen amigos. En un capítulo posterior Conrad llama a Don para comentarle “algo” y, más o menos, lo que comentan es lo siguiente:</p>
-
-<pre><code>C.H.: Don, tengo aquí unos bocetos para una nueva campaña. ¿Qué te parecen?
-
-D.D.: Que si trabajaras gratis no estarías ahora en la Suite Presidencial
-
-C.H.: Oh, vamos Don, somos amigos…
-
-D.D.: Conrad, es mi profesión…
-</code></pre>
-
-<p>¿Qué le dice Don a Conrad? Algo básico: respeto por el profesional, respeto por su tiempo y respeto por su profesión.</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://19drops.com/blog/2014/10/09/future-in-scala-java/" data-via="enqae" data-counturl="http://19drops.com/blog/2014/10/09/future-in-scala-java/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/16/atlassian-jira-confluence/">Atlassian JIRA + Confluence</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2010-03-16T20:45:22+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>8:45 pm</span></time>
-        
-           | <a href="/blog/2010/03/16/atlassian-jira-confluence/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2010/03/16/atlassian-jira-confluence/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Bueno pues todas las herramientas de Atlassian están estos días un poco más asequibles, la verdad es que me parece que tienen esta opción desde enero, pero lo he visto hoy. Están ofreciendo un paquete “starter” que incluye un acceso a todas sus herramientas (no estoy seguro si a Clover también) para 10 usuarios por 10$ ($60 aprox. 44€ el conjunto completo JIRA, Confluence, Green Hopper, Bamboo, FishEye y Crowd).
-La verdad es que para pequeños grupos de trabajo que quieran utilizar estas herramientas es muy interesante, además lo que recaudan con esto lo donan enteramente a Room To Read, que es una gente que se dedica a apoyar la educación de niños en zonas con pocas posibilidades (<em>De la instrucción nace la grandeza a las naciones – José Rizal</em>).</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2014/09/20/optionally-no-nulls/" title="Previous Post: Optionally no nulls">&laquo; Optionally no nulls</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/02/zappos-y-su-decalogo/">Zappos Y Su Decálogo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2010-03-02T20:33:33+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2010</span></span> <span class='time'>8:33 pm</span></time>
-        
-           | <a href="/blog/2010/03/02/zappos-y-su-decalogo/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2010/03/02/zappos-y-su-decalogo/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Estaba leyendo hoy una noticia sobre <a href="http://www.zappos.com/">Zappos</a>, uno de los mayores sitios de comercio electrónico de USA (recientemente adquirido por Amazon), acerca del cambio de plataforma que han realizado, y he ido a echar un ojo a sus cabeceras a ver si se veía algo por ahí (sip, a veces se ven cosas), y esta vez sí que se veía algo…
-Ellos añaden dos cabeceras simpáticas:</p>
-
-<ul>
-<li><p><em>X-Core-Value</em>: en la que ponen en cada petición un punto de una especie de decálogo</p></li>
-<li><p><em>X-Recruiting</em>: en la que literalmente ponen
-“If you’re reading this, maybe you should be working at Zappos instead. Check out jobs.zappos.com”</p></li>
-</ul>
-
-
-<p>Sobre su decálogo:</p>
-
-<ul>
-<li>Deliver WOW Through Service</li>
-<li>Embrace and Drive Change</li>
-<li>Create Fun and A Little Weirdness</li>
-<li>Be Adventurous, Creative, and Open-Minded</li>
-<li>Pursue Growth and Learning</li>
-<li>Build Open and Honest Relationships With Communication</li>
-<li>Build a Positive Team and Family Spirit</li>
-<li>Do More With Less</li>
-<li>Be Passionate and Determined</li>
-<li>Be Humble</li>
-</ul>
-
-
-<p>Curioso, y simpático…estos de Zappos…parece que aún queda gente que aprecia el trabajo bien hecho, y además con humor.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/02/03/akismet-y-groovy/">Akismet Y Groovy</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-<time class='entry-date' datetime='2010-02-03T19:22:37+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2010</span></span> <span class='time'>7:22 pm</span></time>
-        
-           | <a href="/blog/2010/02/03/akismet-y-groovy/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2010/02/03/akismet-y-groovy/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://akismet.com/">Akismet</a> es el servicio de detección de spam que utiliza WordPress, pero no solamente es utilizable desde WordPress, sino que cualquier aplicación puede utilizarlo a través del <a href="http://akismet.com/development/api/">API REST</a> que ofrece. Akismet no es un servicio gratuito, pero las modalidades de uso que ofrece son bastante asequibles, teniendo en cuenta los ahorros que puede suponer el no tener que tratar con el spam en tu sistema (o al menos, no tanto como sin él).
-El API es muy simple, son únicamente cuatro operaciones:</p>
-
-<ul>
-<li>Verificar la clave de uso (verifiy-key)</li>
-<li>Comprobar un comentario (comment-check)</li>
-<li>Notificar un falso negativo (submit-spam)</li>
-<li>Notificar un falso positico (submit-ham)</li>
-</ul>
-
-
-<p>Bueno, esto está bien, pero lo que realmente quería, era aprovechar este sencillo API y un wrapper sobre él en Groovy (<a href="https://github.com/enqae/akismet-client">AkismetDrops</a>), para ver por encima alguna de las características que, desde mi punto de vista, hacen de Groovy algo interesante:</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2010/02/03/akismet-y-groovy/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/20/groovy/">Groovy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2010-01-20T20:33:33+01:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>8:33 pm</span></time>
-        
-           | <a href="/blog/2010/01/20/groovy/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2010/01/20/groovy/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>En los últimos dos años se ha producido la consolidación de un proceso, que venía fraguándose de un tiempo antes, en el que la JVM ha pasado de ser la máquina virtual en la que se ejecutaba Java a transformarse en una plataforma sobre la que corren un conjunto muy amplio de lenguajes. Esto es interesante fundamentalmente por tres cosas:</p>
-
-<ul>
-<li>es posible elegir, de entre todos estos lenguajes, el que mejor se ajuste a las necesidades de cada proyecto en particular</li>
-<li>ofrecen una gran integración e interoperabilidad con Java, de modo que su combinación es sencilla pudiendo incluso utilizarlos simultáneamente</li>
-<li>aprovechan la infraestructura de JVMs ya existentes en multitud de instalaciones</li>
-</ul>
-
-
-<p>Algunos de los más populares son: <a href="http://www.scala-lang.org/">Scala</a>, considerado uno de los lenguajes del futuro, <a href="http://clojure.org/">Clojure</a>, con un foco especial en la programación concurrente, <a href="http://groovy.codehaus.org/">Groovy</a>, como un superconjunto de Java, Ruby (a través de <a href="http://jruby.org/">JRuby</a>), capaz de ejecutar Rails, PHP (a través de <a href="http://www.caucho.com/resin-3.0/quercus/">Quercus</a>), Javascript (<a href="http://www.mozilla.org/rhino/">Rhino</a>)…</p>
-
-<p>Entre todos ellos, Groovy es uno de los más interesantes para los desarrolladores Java, porque:</p>
-
-<ul>
-<li>su sintaxis es muy similar a la de Java, la curva de aprendizaje es baja, no es un lenguaje diferente</li>
-<li>ofrece las ventajas de un lenguaje dinámico</li>
-<li>extiende el JDK, complementa a Java, simplifica el tratamiento de listas, maps, XML…</li>
-<li>proporciona soporte para DSLs</li>
-<li>  incorpora flavors de programación funcional (closures)…</li>
-</ul>
-
-
-<p>Pero lo que, desde mi punto de vista, hace a Groovy especialmente relevante para los desarrolladores Java es que dispone de un framework para desarrollo de aplicaciones web, Grails, que podemos decir equivalente en cuanto a funcionalidad, posibilidades y velocidad de desarrollo a Ruby On Rails, con todo lo que ello significa.
-Actualmente SpringSource (creadores de Spring) se encarga del desarrollo de <a href="http://www.grails.org/">Grails</a>, y si lo combinamos con su <a href="http://www.cloudfoundry.com/">CloudFoundry</a>, podemos ir haciéndonos una idea de las posibilidades que esto ofrece…</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/11/09/trac/">TRAC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2009-11-09T14:28:44+01:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>2:28 pm</span></time>
-        
-           | <a href="/blog/2009/11/09/trac/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2009/11/09/trac/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Dentro de las herramientas de seguimiento de errores existe un amplio abanico que va desde las más simples, o más centradas en su funcionalidad original, como <a href="http://www.bugzilla.org/">Bugzilla</a> o <a href="http://www.mantisbt.org/">Mantis</a> (ambos OpenSource), hasta las más evolucionadas como <a href="http://www.redmine.org/">Redmine</a> (OpenSource), <a href="http://www.atlassian.com/software/jira/">JIRA</a> o <a href="http://www.fogcreek.com/FogBUGZ/">FogBugz</a> (ambos comerciales), que complementan su funcionalidad original de seguimiento de errores con un conjunto de funcionalidades adicionales, que les permiten saltar un nivel y convertirse en herramientas con las que poder efectuar el control y la gestión de un proyecto.</p>
-
-<p><a href="http://trac.edgewall.org/">TRAC</a> (OpenSource) es originalmente un sistema de seguimiento de issues, esto es importante porque se posiciona no como un sistema orientado principalmente a la gestión de bugs, como Bugzilla o Mantis (aunque luego hagan más cosas), sino que busca ofrecer los mecanismos básicos para poder efectuar la gestión de un proyecto, y en este sentido se aproxima a lo ofrecido por JIRA o FogBugz.</p>
-
-<p>TRAC es flexible, no impone ninguna metodología, simplemente ofrece un conjunto de herramientas para que se puedan hacer las cosas, algunas de estas herramientas son:</p>
-
-<ul>
-<li>Sistema completo de gestión de Tickets, que permiten establecer y asignar las funcionalidades que se desarrollarán en el proceso (nuevas características, errores, tareas…)</li>
-<li>Wiki, como repositorio común de información/documentación para el proyecto (estructura del proyecto, dónde están los servidores, cómo configurar los entornos, guías de estilo y codificación…tooodooo)</li>
-<li>Integración con el sistema de control de versiones (Subversion y Git…entre otros)</li>
-<li>Roadmap, o calendario de versiones, que permite ver el grado de avance y cuándo se preve que sean liberadas las nuevas funcionalidades</li>
-<li>TimelIne, o lugar en el que se registran y se pueden revisar todas las operaciones realizadas en el proyecto desde el cambio en una página del wiki hasta el último commit en el repositorio de código.</li>
-<li>RSS como mecanismo de seguimiento en casi todos los módulos de TRAC</li>
-<li>&hellip;otras muchas&hellip;</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2009/11/09/trac/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/10/31/la-dificultad-del-no/">La Dificultad Del No</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2009-10-31T20:21:31+01:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2009</span></span> <span class='time'>8:21 pm</span></time>
-        
-           | <a href="/blog/2009/10/31/la-dificultad-del-no/#disqus_thread"
-             data-disqus-identifier="http://19drops.com/blog/2009/10/31/la-dificultad-del-no/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>En la vida diaria casi todas las personas hacen un esfuerzo por agradar y facilitar
-las cosas a los demás: preguntas por una calle, dejas un recado, pides ayuda
-para levantar algo… de acuerdo, hay excepciones, pero son las menos.
-Es algo que va en la condición humana. Sin embargo, lo que es bueno en el día a día,
-no es tan bueno cuando se traslada a otros ámbitos.
-Cuando se define un proyecto es de vital importancia mantenerlo dentro de su alcance,
-la salida fácil de la completa aquiescencia ante las demandas no contempladas,
-no es más que una dilación del problema, que no hará sino agravarse.
-La definición de un sistema es algo complejo, no es una mera toma de notas,
-en realidad se trata de un proceso de negociación, que debe manejarse de manera flexible
-para dar cabida a las cuestiones no previstas inicialmente, pero que deban contemplarse,
-y para dar salida a contrapartes equivalentes. En este proceso habrá ocasiones en
-las que será necesario decir que no, y, aunque parezca extraño, se estará haciendo
-un gran servicio al sistema. Un enfoque simplista del tipo <em>lo ha pedido el cliente</em>,
-sin ninguna medida que efectúe un ajuste, introducirá un grave riesgo para
-la consecución del éxito final, porque amplificará sin control su alcance.</p>
-
-<p>Alguna vez he leído lo siguiente atribuído a <a href="http://en.wikipedia.org/wiki/Alan_Cox">Alan Cox</a>: “La gente siempre pide más, pero algunas veces lo correcto es decirles simplemente que no“… en este caso mas que no, sería un negociemoslo.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -1276,7 +808,7 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
       </li>
     
       <li class="post">
-        <a href="/blog/2011/09/09/es-mi-profesion/">Es Mi Profesión&#8230;</a>
+        <a href="/blog/2011/09/09/es-mi-profesion/">Es Mi Profesión...</a>
       </li>
     
       <li class="post">
@@ -1289,7 +821,7 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/enqae">@enqae</a> on GitHub
@@ -1322,6 +854,7 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -1336,7 +869,10 @@ la consecución del éxito final, porque amplificará sin control su alcance.</p
       var disqus_shortname = '19drops';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://19drops.com/blog/2014/10/09/future-in-scala-java/';
+        var disqus_url = 'http://19drops.com/blog/2014/10/09/future-in-scala-java/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
